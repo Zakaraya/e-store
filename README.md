@@ -1,2 +1,2 @@
 # e-store
-Django интернет-магазин
+Django интернет-магазин"# estore" 
