@@ -5,7 +5,7 @@
 <nav aria-label="breadcrumb" class="mt-3">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{% url 'base' %}">Главная</a></li>
-    <li class="breadcrumb-item"><a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a></li>
+    <li class="breadcrumb-item"><a href="{{ product.category.get_absolute_url }}">{{ product.category.category_name }}</a></li>
     <li class="breadcrumb-item active" aria-current="page">{{ product.title }}</li>
   </ol>
 </nav>
@@ -22,6 +22,12 @@
             <hr>
 {#            <a href="{% url 'add_to_cart' ct_model=ct_model slug=product.slug %}"><button class="btn btn-danger">Добавить в корзину</button></a>#}
             <a href=""><button class="btn btn-danger">Добавить в корзину</button></a>
+            <p class="price">${{ product.price }}</p>
+                <form action="{% url "cart:cart_add" product.id %}" method="post">
+                    {{ cart_product_form }}
+                    {% csrf_token %}
+                    <input type="submit" value="Add to cart">
+                </form>
 
     </div>
      <p class="mt-4">Характеристики: </p>
