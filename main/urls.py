@@ -1,6 +1,7 @@
 from django.urls import path, include
 
 from .views import BaseView, ProductDetailView, CategoryDetailView
+
 # app_name = 'main'
 
 urlpatterns = [

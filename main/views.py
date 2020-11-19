@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView, View
+
+from cart.forms import CartAddProductForm
 from .models import *
 from .mixins import CategoryDetailMixin
 
@@ -19,7 +21,6 @@ class BaseView(View):
 
 class ProductDetailView(CategoryDetailMixin, DetailView):
     """Класс для отобраения порбродной информации для выбранного товара"""
-
     CT_MODEL_CLASS = {
         'iphone': Iphone,
         'ipad': Ipad

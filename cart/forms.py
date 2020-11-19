@@ -1,6 +1,6 @@
 from django import forms
 
-PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(1, 20)] # не больше 20 товара в корзине
+PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(1, 20)]  # не больше 20 товара в корзине
 
 
 class CartAddProductForm(forms.Form):

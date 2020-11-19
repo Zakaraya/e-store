@@ -122,6 +122,10 @@ class Iphone(Product):
     def get_absolute_url(self):
         """Функция получения названия view, которая передается в get_product_url для отображения необходимого товара"""
         return get_product_url(self, 'product_detail')
+    #
+    # class Meta:
+    #     ordering = ('title',)
+    #     index_together = (('id', 'slug'),)
 
 
 class Ipad(Product):

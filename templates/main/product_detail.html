@@ -22,12 +22,13 @@
             <hr>
 {#            <a href="{% url 'add_to_cart' ct_model=ct_model slug=product.slug %}"><button class="btn btn-danger">Добавить в корзину</button></a>#}
             <a href=""><button class="btn btn-danger">Добавить в корзину</button></a>
-            <p class="price">${{ product.price }}</p>
-                <form action="{% url "cart:cart_add" product.id %}" method="post">
-                    {{ cart_product_form }}
-                    {% csrf_token %}
-                    <input type="submit" value="Add to cart">
-                </form>
+<p class="price">${{ product.price }}</p>
+<form action="{% url 'cart:cart_add' slug=product.slug product_id=product.id %}" method="post">
+    {{ cart_product_form }}
+    {% csrf_token %}
+{#    <button type="submit" value="Add to cart"></button>#}
+     <a href="" TYPE="submit"><button class="btn btn-danger">Добавить в корзину</button></a>
+</form>
 
     </div>
      <p class="mt-4">Характеристики: </p>
