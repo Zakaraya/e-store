@@ -49,6 +49,7 @@ class CategoryManager(models.Manager):
 
     def get_categories_for_left_sidebar(self):
         """Функция получения категорий в sidebar"""
+        # category_models = get_models_for_count('ipad', 'iphone')
         category_models = get_models_for_count('ipad', 'iphone')
         queryset_categories = list(self.get_queryset().annotate(*category_models))
         # return [
@@ -60,6 +61,7 @@ class CategoryManager(models.Manager):
             for item in queryset_categories
         ]
         return data
+        pass
 
 
 class CategoryProduct(models.Model):
@@ -72,7 +74,6 @@ class CategoryProduct(models.Model):
         return self.category_name
 
     def get_absolute_url(self):
-        # return reverse('category_detail', kwargs={'slug': self.slug})
         return reverse('category_detail', kwargs={'slug': self.slug})
 
     class Meta:
@@ -85,7 +86,6 @@ class Product(models.Model):
     """Таблица товаров"""
 
     class Meta:
-        abstract = True
         ordering = ('title',)
         index_together = (('id', 'slug'),)
 
@@ -144,3 +144,13 @@ class Ipad(Product):
     def get_absolute_url(self):
         """Функция получения названия view, которая передается в get_product_url для отображения необходимого товара"""
         return get_product_url(self, 'product_detail')  # product_detail берется из urls.py
+
+
+# class CartProduct(models.Model):
+#     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+#     object_id = models.PositiveIntegerField()
+#     content_object = GenericForeignKey('content_type', 'object_id')
+#
+#
+# class Cart(models.Model):
+#     products = models.ManyToManyField(CartProduct, blank=True, related_name='related_cart')

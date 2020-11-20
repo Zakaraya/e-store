@@ -7,10 +7,11 @@ from .forms import CartAddProductForm
 
 
 @require_POST
-def cart_add(request, product_id, slug):
+def cart_add(request, title):
     cart = Cart(request)
-    # product = get_object_or_404(Iphone.objects.first(), id=product_id)
-    product = Iphone.objects.first()
+    product = get_object_or_404(Product, title=title)
+    print(product)
+    # product = Iphone.objects.first()
     form = CartAddProductForm(request.POST)
     if form.is_valid():
         cd = form.cleaned_data
@@ -20,11 +21,11 @@ def cart_add(request, product_id, slug):
     return redirect('cart:cart_detail')
 
 
-def cart_remove(request, product_id):
-    cart = Cart(request)
-    product = get_object_or_404(Product, id=product_id)
-    cart.remove(product)
-    return redirect('cart:cart_detail')
+# def cart_remove(request, product_id):
+#     cart = Cart(request)
+#     product = get_object_or_404(CartProduct, id=product_id)
+#     cart.remove(product)
+#     return redirect('cart:cart_detail')
 
 
 def cart_detail(request):

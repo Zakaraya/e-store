@@ -43,6 +43,7 @@ class Cart(object):
         """Перебор элементов в корзине и получение продуктов из базы данных."""
         product_ids = self.cart.keys()
         # получение объектов product и добавление их в корзину
+        # products = Product.objects.filter(id__in=product_ids)
         products = Product.objects.filter(id__in=product_ids)
         for product in products:
             self.cart[str(product.id)]['product'] = product

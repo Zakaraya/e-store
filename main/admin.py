@@ -19,5 +19,8 @@ class ProductIpadAdmin(admin.ModelAdmin):
 
 
 admin.site.register(CategoryProduct)
-admin.site.register(Iphone, ProductIphoneAdmin)
 admin.site.register(Ipad, ProductIpadAdmin)
+admin.site.register(Iphone, ProductIphoneAdmin)
+admin.site.register(Product)
+# admin.site.register(Iphone, ProductIphoneAdmin)
+# admin.site.register(Ipad, ProductIpadAdmin)
