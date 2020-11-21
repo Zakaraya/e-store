@@ -8,5 +8,5 @@ urlpatterns = [
     # path('add/<str:product_id>/', views.cart_add, name='cart_add'),
     path('add/<str:title>/', views.cart_add, name='cart_add'),
     # path('add/<str:product_id>/', views.cart_add, name='cart_add'),
-    # path(r'^remove/(?P<product_id>\d+)/$', views.cart_remove, name='cart_remove'),
+    path(r'^remove/(?P<product_id>\d+)/$', views.cart_remove, name='cart_remove'),
 ]

@@ -1,41 +1,41 @@
 {% extends "main/base.html" %}
 {% load static %}
 {% block title %}
-    Your shopping cart
+{#    Your shopping cart#}
 {% endblock %}
 {% block content %}
-    <h1>Your shopping cart</h1>
-    <table class="cart">
-        <thead>
-        <tr>
-            <th>Image</th>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Remove</th>
-            <th>Unit price</th>
-            <th>Price</th>
-        </tr>
-        </thead>
+{#    <h1>Your shopping cart</h1>#}
+    <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Наименование</th>
+              <th scope="col">Изображение</th>
+              <th scope="col">Цена</th>
+              <th scope="col">Кол-во</th>
+              <th scope="col">Общая цена</th>
+              <th scope="col">Действие</th>
+            </tr>
+          </thead>
         <tbody>
         {% for item in cart %}
             {% with product=item.product %}
                 <tr>
-                    <td>
-                    <p>{{ product.title }}</p>
-                        <a href="{{ product.get_absolute_url }}">
-                            <img src="
-                                {% if product.image %}
-                                    {{ product.image.url }}
+                  <th scope="row">{{ product.title }}</th>
+{#                    <td>#}
+{#                        <a href="{{ product.get_absolute_url }}">#}
+{#                            <img src="#}
+{#                                {% if product.image %}#}
+{#                                    {{ product.image.url }}#}
 {#                                {% else %}#}
 {#                                    {% static "img/no_image.png" %}#}
-                                {% endif %}">
-                        </a>
-                    </td>
-                    <td>{{ product.name }}</td>
+{#                                {% endif %}">#}
+{#                        </a>#}
+{#                    </td>#}
+                    <td class="w-25"><img src="{{ product.image.url }}"  class="img-fluid"></td>
+                    <td>{{ product.price }} руб.</td>
                     <td>{{ item.quantity }}</td>
-{#                    <td><a href="{% url "cart:cart_remove" product.id%}">Remove</a></td>#}
-                    <td class="num">${{ item.price }}</td>
                     <td class="num">${{ item.total_price }}</td>
+                    <td><a href="{% url 'cart:cart_remove' product.id%}">Remove</a></td>
                 </tr>
             {% endwith %}
         {% endfor %}
@@ -51,3 +51,5 @@
         <a href="#" class="button">Checkout</a>
     </p>
 {% endblock %}
+
+
