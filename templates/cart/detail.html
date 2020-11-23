@@ -21,16 +21,6 @@
             {% with product=item.product %}
                 <tr>
                   <th scope="row">{{ product.title }}</th>
-{#                    <td>#}
-{#                        <a href="{{ product.get_absolute_url }}">#}
-{#                            <img src="#}
-{#                                {% if product.image %}#}
-{#                                    {{ product.image.url }}#}
-{#                                {% else %}#}
-{#                                    {% static "img/no_image.png" %}#}
-{#                                {% endif %}">#}
-{#                        </a>#}
-{#                    </td>#}
                     <td class="w-25"><img src="{{ product.image.url }}"  class="img-fluid"></td>
                     <td>{{ product.price }} руб.</td>
                     <td>{{ item.quantity }}</td>
@@ -79,5 +69,3 @@
 </a>
     </p>
 {% endblock %}
-
-

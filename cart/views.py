@@ -38,6 +38,7 @@ def cart_detail(request):
                      'update': True})
     coupon_apply_form = CouponApplyForm()
     return render(request,
-                  'cart/detail.html',
+                  # 'cart/detail.html',
+                  'cart/detail2.html',
                   {'cart': cart,
                    'coupon_apply_form': coupon_apply_form})

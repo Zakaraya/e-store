@@ -47,10 +47,12 @@ class CategoryManager(models.Manager):
         'Айпады': 'ipad__count'
     }
 
+
     def get_categories_for_left_sidebar(self):
         """Функция получения категорий в sidebar"""
-        # # category_models = get_models_for_count('ipad', 'iphone')
+        pass
         # category_models = get_models_for_count('ipad', 'iphone')
+        # category_models = get_models_for_count('ipads', 'iphones')
         # queryset_categories = list(self.get_queryset().annotate(*category_models))
         # # return [
         # #     dict(name=item['category_name'], slug=item['slug'],
@@ -61,7 +63,9 @@ class CategoryManager(models.Manager):
         #     for item in queryset_categories
         # ]
         # return data
-        # pass
+        # qs = self.get_queryset().annotate(models.Count('iphones'))
+        # qs = self.get_queryset(models.Count('iphone'))
+        # print(qs)
 
 
 class CategoryProduct(models.Model):

@@ -24,7 +24,7 @@ SECRET_KEY = 'ysv5aa*j@-f#o^_sqibxzxdl+6xhiss(9wg)s0np*=*c$d8cp*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['f783fa2b03df.ngrok.io', '127.0.0.1']
 
 # Application definition
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'cart',
     'orders',
     'coupons',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +132,5 @@ STATICFILES_DIRS = (
 CART_SESSION_ID = 'cart'
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

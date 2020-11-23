@@ -10,7 +10,9 @@ class BaseView(View):
     """Базовое представление"""
 
     def get(self, request, *args, **kwargs):
-        categories = CategoryProduct.objects.get_categories_for_left_sidebar()
+        # categories = CategoryProduct.objects.get_categories_for_left_sidebar()
+        # ИСПРАВИТЬ!!!!!!!!!!!!!
+        categories = [{'name': 'Айпады', 'url': '/category/ipads/', 'count': 2}, {'name': 'Айфоны', 'url': '/category/iphones/', 'count': 2}]
         products = LatestProducts.objects.get_products_for_main_page('iphone', 'ipad')
         context = {
             'categories': categories,
