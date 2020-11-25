@@ -16,6 +16,7 @@ class CategoryDetailMixin(SingleObjectMixin):
         if isinstance(self.get_object(), CategoryProduct):
             model = self.CATEGORY_SLUG2PRODUCT_MODEL[self.get_object().slug]
             context = super().get_context_data(**kwargs)
+            # ИСПРАВИТЬ!!!!!!!!!!!
             context['categories'] = [{'name': 'Айпады', 'url': '/category/ipads/', 'count': 2},
                                      {'name': 'Айфоны', 'url': '/category/iphones/', 'count': 2}]
             context['category_products'] = model.objects.all()

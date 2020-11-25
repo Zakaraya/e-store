@@ -20,13 +20,17 @@ class Cart(object):
     def add(self, product, quantity=1, update_quantity=False):
         """Добавить продукт в корзину или обновить его количество."""
         product_id = str(product.id)
+        # print(self.cart[product_id]['quantity'])
         if product_id not in self.cart:
             self.cart[product_id] = {'quantity': 0,
                                      'price': str(product.price)}
         if update_quantity:
             self.cart[product_id]['quantity'] = quantity
+        elif type(self.cart[product_id]['quantity']) == str:
+            self.cart[product_id]['quantity'] += 1
         else:
             self.cart[product_id]['quantity'] += quantity
+            # self.cart[product_id]['quantity'] += 1
         self.save()
 
     def save(self):

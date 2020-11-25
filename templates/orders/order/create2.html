@@ -1,0 +1,82 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-6">
+        <div class="box-element" id="form-wrapper">
+            <form action="." method="post" class="order-form">
+                <div class="user-info">
+                    <div class="form-field">
+                        {{ form.first_name|as_crispy_field }}
+{#							<input required class="form-control" type="text" name="name" placeholder="Name..">#}
+					</div>
+					<div class="form-field">
+                        {{ form.last_name|as_crispy_field }}
+{#							<input required class="form-control" type="email" name="email" placeholder="Email..">#}
+					</div>
+                </div>
+
+                <div class="shipping-info">
+                    <hr>
+						<p>Shipping Information:</p>
+						<hr>
+						<div class="form-field">
+                            {{ form.email|as_crispy_field }}
+{#							<input class="form-control" type="text" name="address" placeholder="Address..">#}
+						</div>
+						<div class="form-field">
+                            {{ form.address|as_crispy_field }}
+{#							<input class="form-control" type="text" name="city" placeholder="City..">#}
+						</div>
+						<div class="form-field">
+                            {{ form.postal_code|as_crispy_field }}
+{#							<input class="form-control" type="text" name="state" placeholder="State..">#}
+						</div>
+						<div class="form-field">
+                            {{ form.city|as_crispy_field }}
+{#							<input class="form-control" type="text" name="zipcode" placeholder="Zip code..">#}
+						</div>
+{#						<div class="form-field">#}
+{#							<input class="form-control" type="text" name="country" placeholder="Zip code..">#}
+{#						</div>#}
+                </div>
+                <hr>
+                <input type="submit" id="form-button" class="btn btn-success btn-block" value="Продолжить">
+                {% csrf_token %}
+            </form>
+        </div>
+        <div class="box-element hidden" id="payment-info">
+            <small>Опции оплаты</small>
+            <button id="make-payment">Оплатить</button>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="box-element">
+            <a href="{% url 'cart:cart_detail' %}" class="btn btn-outline-dark">&#x2190; Вернуться в корзину</a>
+            <hr>
+            <h3>Оформить заказ</h3>
+            <hr>
+            {% for item in cart %}
+            <div class="cart-row">
+				<div style="flex:2"><img class="row-image" src="{{ item.product.image.url }}"></div>
+				<div style="flex:2"><p>{{ item.product.title }}</p></div>
+				<div style="flex:1"><p>{{ item.product.price|floatformat:2 }} </p></div>
+				<div style="flex:1"><p>{{ item.quantity }}</p></div>
+			</div>
+            {% endfor %}
+				<h5>Items:   {{ cart|length }}</h5>
+				<h5>Total:   {{ cart.get_total_price_after_discount|floatformat:"2" }} Руб.</h5>
+        </div>
+    </div>
+</div>
+
+{#        <form action="." method="post" class="order-form">#}
+{#        {{ form.as_p|crispy }}#}
+{#        {{ form.as_p }}#}
+{#        <p><input type="submit" value="Place order"></p>#}
+{#        {% csrf_token %}#}
+{#    </form>#}
+
+{% endblock %}

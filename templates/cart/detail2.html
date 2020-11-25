@@ -11,7 +11,7 @@
 
                 <table class="table">
                     <tr>
-                        <th><h5>Покупки: <strong>{{ order.get_cart_items }}</strong></h5></th>
+                        <th><h5>Покупки: <strong>{{ cart|length }}</strong></h5></th>
                         <th><h5>Стоимость: <strong>{{ cart.get_total_price_after_discount|floatformat:"2" }} руб.</strong></h5></th>
                         <th>
                             <a style="float: right; margin: 5px;" class="btn btn-success" href="{% url 'orders:order_create' %}">Оформить заказ</a>
@@ -38,7 +38,8 @@
                     <div style="flex: 1">{{ product.price }} руб.</div>
 {#                    Разобраться со стрелками!!#}
                     <div style="flex: 1"><input type="number" class="form-control" name="qty" style="width: 70px;" min="1" value="{{ item.quantity }}"></div>
-                    <div style="flex: 1">{{ item.total_price }} руб.</div>
+                    <div style="flex: 1">{{ item.total_price }} руб. <div><td><a href="{% url 'cart:cart_remove' product.id%}">Удалить</a></td></div></div>
+
                 </div>
                     {% endwith %}
                 {% endfor %}
@@ -59,7 +60,7 @@
             </td>
         </tr>
     {% endif %}
-               <form action="{% url "coupons:apply" %}" method="post">
+<form action="{% url "coupons:apply" %}" method="post">
     {{ coupon_apply_form }}
     <input type="submit" value="Apply">
     {% csrf_token %}

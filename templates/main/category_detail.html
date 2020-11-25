@@ -24,7 +24,9 @@
       <div class="card-footer">
 {#        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>#}
 {#          <a href="{% url 'add_to_cart' ct_model=product.get_model_name slug=product.slug %}"><button class="btn btn-danger">Добавить в корзину</button></a>#}
-          <a href=""><button class="btn btn-danger">Добавить в корзину</button></a>
+{#          <a href=""><button class="btn btn-danger">Добавить в корзину</button></a>#}
+          <button  data-id="{{ product.id }}" data-model="{{ product.slug }}" data-action="add" class="btn btn-danger update-cart2" id="update2">Добавить в корзину</button>
+
       </div>
     </div>
   </div>
