@@ -6,6 +6,8 @@ from decimal import Decimal
 
 
 class Order(models.Model):
+    # customer = models.ForeignKey('main.Customer', verbose_name='Покупатель', related_name='related_orders',
+    #                              on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField()

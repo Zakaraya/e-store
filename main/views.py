@@ -2,9 +2,11 @@ from django.shortcuts import render
 from django.views.generic import DetailView, View
 from .models import *
 from .mixins import CategoryDetailMixin
-from .forms import LoginForm
+from .forms import LoginForm, RegistrationForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
+
+from orders.models import Order
 
 
 class BaseView(View):
@@ -71,13 +73,13 @@ class LoginView(View):
 
 class RegistrationView(View):
     def get(self, request, *args, **kwargs):
-        form = LoginForm(request.POST or None)
+        form = RegistrationForm(request.POST or None)
         categories = CategoryProduct.objects.all()
         context = {'form': form, 'categories': categories}
         return render(request, 'main/registration.html', context)
 
     def post(self, request, *args, **kwargs):
-        form = LoginForm(request.POST or None)
+        form = RegistrationForm(request.POST or None)
         if form.is_valid():
             new_user = form.save(commit=False)
             new_user.username = form.cleaned_data['username']
@@ -87,11 +89,20 @@ class RegistrationView(View):
             new_user.save()
             new_user.set_password(form.cleaned_data['password'])
             new_user.save()
+            Customer.objects.create(
+                user=new_user,
+                phone=form.cleaned_data['phone'],
+                address=form.cleaned_data['address']
+            )
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            login(request, user)
+            return HttpResponseRedirect('/')
+        return render(request, 'main/registration.html', {'form': form})
 
 
-            password = form.cleaned_data['password']
-            user = authenticate(username=username, password=password)
-            if user:
-                login(request, user)
-                return HttpResponseRedirect('/')
-        return render(request, 'main/login.html', {'form': form})
+class ProfileView(View):
+    def get(self, request, *args, **kwargs):
+        customer = Customer.objects.get(user=request.user)
+        categories = CategoryProduct.objects.all()
+        orders = Order.objects.filter(customer=customer).order_by('-created')
+        return render(request, 'main/profile.html', {'orders': orders, 'categories': categories})

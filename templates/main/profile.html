@@ -1,0 +1,44 @@
+{% extends 'main/base.html' %}
+{% block content %}
+
+    <h3 class="mt-3 mb-3">заказы пользователя {{ request.user.username }}</h3>
+    {% if not orders.count %}
+
+        <div class="col-md-12">
+        <h3>У вас еще нет ни одного заказа <a href="{% url 'main:base' %}">Купить</a> </h3>
+        </div>
+        {% else %}
+        <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <th scope="col">Номер</th>
+{#                <th scope="col">Статус</th>#}
+                <th scope="col">Сумма</th>
+                <th scope="col">Товар</th>
+                <th scope="col">Дополнительно</th>
+            </thead>
+
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <th scope="row">{{ order.id }}</th>
+{#                        <td>{{ order.get_status_display }}</td>#}
+                        <td>{{ order.cart.get_total_price }}</td>
+                        <td>
+                            <ul>
+                                {% for item in order.cart.product.all %}
+                                    <li>{{ item.product.title }} x {{ item.qty }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    <td>
+                        <button class="btn btn-info"> Дополнительно</button>
+                    </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+        </div>
+    {% endif %}
+{% endblock content %}

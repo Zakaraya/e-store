@@ -68,8 +68,15 @@
                 <a class="nav-link text-link" href="{% url 'main:login' %}">Авторизация</a>
                 </li>
                 <li>
-                <a class="nav-link text-link" href="#">Регистрация</a>
+                <a class="nav-link text-link" href="{% url 'main:registration' %}">Регистрация</a>
                 </li>
+                {% else %}
+                <ul class="navbar-nav ml-auto">
+                <a href="{% url 'main:logout' %}" class="btn btn-warning">Выйти</a>
+                <a href="{% url 'main:profile' %}" class="btn btn-warning">ТЕСТ</a>
+                <li class="nav-item active">
+            </ul>
+
             {% endif %}
 
             </ul>
