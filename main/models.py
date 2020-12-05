@@ -47,7 +47,6 @@ class CategoryManager(models.Manager):
         'Айпады': 'ipad__count'
     }
 
-
     def get_categories_for_left_sidebar(self):
         """Функция получения категорий в sidebar"""
         pass
@@ -151,17 +150,13 @@ class Ipad(Product):
 
 
 class Customer(models.Model):
-
     user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
     phone = models.CharField(max_length=20, verbose_name='Номер телефона', null=True, blank=True)
     address = models.CharField(max_length=255, verbose_name='Адрес', null=True, blank=True)
     orders = models.ManyToManyField('orders.Order', verbose_name='Заказы покупателя', related_name='related_order')
 
     def __str__(self):
-        return "Покупатель: {} {}"
-
-
-
+        return "Покупатель: {} {}".format(self.user.first_name, self.user.last_name)
 
 # class CartProduct(models.Model):
 #     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)

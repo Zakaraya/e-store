@@ -100,3 +100,34 @@ h1,h2,h3,h4,h5,h6{
 .hidden{
 	display: none!important;
 }
+
+
+@media (max-width: 634px) {
+	#cart-row-1{
+		display: none;
+	}
+}
+
+@media (max-width: 450px) {
+	#cart-row-2{
+		flex-wrap: wrap;
+		align-items: center;
+	}
+	#title-item-cart{
+		font-size: 1.5rem;
+		margin-left: 1em;
+	}
+	#count-item, #price-one-item{
+		display: none;
+	}
+	.row-image{
+		width: 160px;
+	}
+	#total-price-cart{
+		font-size: 1.3rem;
+	}
+	#counter-item-cart{
+		margin-top: 1em;
+	}
+
+}

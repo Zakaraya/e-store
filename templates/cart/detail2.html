@@ -11,7 +11,7 @@
 
                 <table class="table">
                     <tr>
-                        <th><h5>Покупки: <strong>{{ cart|length }}</strong></h5></th>
+                        <th id="count-item"><h5>Покупки: <strong>{{ cart|length }}</strong></h5></th>
                         <th><h5>Стоимость: <strong>{{ cart.get_total_price_after_discount|floatformat:"2" }} руб.</strong></h5></th>
                         <th>
                             <a style="float: right; margin: 5px;" class="btn btn-success" href="{% url 'orders:order_create' %}">Оформить заказ</a>
@@ -22,7 +22,7 @@
             </div>
             <br>
             <div class="box-element">
-                <div class="cart-row">
+                <div class="cart-row" id="cart-row-1">
                     <div style="flex: 2"></div>
                     <div style="flex: 2"><strong>Покупки</strong></div>
                     <div style="flex: 1"><strong>Цена</strong></div>
@@ -32,13 +32,14 @@
 
                 {% for item in cart %}
                      {% with product=item.product %}
-                <div class="cart-row">
+                <div class="cart-row" id="cart-row-2">
+
                     <div style="flex: 2"><img src="{{ product.image.url }}" class="row-image"></div>
-                    <div style="flex: 2">{{ product.title }}</div>
-                    <div style="flex: 1">{{ product.price }} руб.</div>
+                    <div style="flex: 2" id="title-item-cart">{{ product.title }}</div>
+                    <div style="flex: 1" id="price-one-item">{{ product.price }} руб.</div>
 {#                    Разобраться со стрелками!!#}
-                    <div style="flex: 1"><input type="number" class="form-control" name="qty" style="width: 70px;" min="1" value="{{ item.quantity }}"></div>
-                    <div style="flex: 1">{{ item.total_price }} руб. <div><td><a href="{% url 'cart:cart_remove' product.id%}">Удалить</a></td></div></div>
+                    <div style="flex: 1" id="counter-item-cart"><input type="number" class="form-control" name="qty" style="width: 70px;" min="1" value="{{ item.quantity }}"></div>
+                    <div style="flex: 1" id="total-price-cart">{{ item.total_price }} руб. <div><td><a href="{% url 'cart:cart_remove' product.id%}">Удалить</a></td></div></div>
 
                 </div>
                     {% endwith %}
@@ -59,12 +60,24 @@
                 - ${{ cart.get_discount|floatformat:"2" }}
             </td>
         </tr>
+{#                  {% else %}#}
+{#                      <tr class="subtotal">#}
+{#                    <td>НЕА</td>#}
+{#                    <td colspan="4"></td>#}
+{#                    <td class="num">${{ cart.get_total_price }}</td>#}
+{#                </tr>#}
     {% endif %}
 <form action="{% url "coupons:apply" %}" method="post">
     {{ coupon_apply_form }}
-    <input type="submit" value="Apply">
+    <input type="submit" value="Применить" onclick="chpok('test')">
     {% csrf_token %}
+                                  {% if cart.coupon == None %}
+                      <tr class="subtotal2">
+                    <p id="test">YT</p>
+                </tr>
+            {%  endif %}
 </form>
+
             </div>
         </div>
     </div>

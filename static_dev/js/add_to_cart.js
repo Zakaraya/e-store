@@ -38,6 +38,14 @@ for (var i = 0; i < updateBtns.length; i++){
              location.reload()
          })
  }
+//  var test = document.getElementById('test')
+// test = test.style.display = 'none';
+ function chpok(id){
+    elem = document.getElementById(id); //находим блок div по его id, который передали в функцию
+    state = elem.style.display; //смотрим, включен ли сейчас элемент
+    if (state =='') elem.style.display='none'; //если включен, то выключаем
+    else elem.style.display=''; //иначе - включаем
+}
  // $(document).ready(function () {
 //     $('.update-cart2').on('click', function () {
 //         product_id = $(this).attr('data-id')

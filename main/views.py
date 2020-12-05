@@ -8,6 +8,10 @@ from django.http import HttpResponseRedirect
 
 from orders.models import Order
 
+from django.views import View
+from django.core.mail import send_mail
+
+# from .forms import ContactForm
 
 class BaseView(View):
     """Базовое представление"""
@@ -106,3 +110,35 @@ class ProfileView(View):
         categories = CategoryProduct.objects.all()
         orders = Order.objects.filter(customer=customer).order_by('-created')
         return render(request, 'main/profile.html', {'orders': orders, 'categories': categories})
+
+
+class EContactsView(View):
+    template_name = 'main/contacts_info.html'
+
+    # # В случае get запроса, мы будем отправлять просто страницу с контактной формой
+    # def get(self, request, *args, **kwargs):
+    #     context = {'contact_form': ContactForm()}
+    #     # context.update(csrf(request))    # Обязательно добавьте в шаблон защитный токен
+    #
+    #     return render(request, template_name=self.template_name, context=context)
+    #
+    # def post(self, request, *args, **kwargs):
+    #     context = {}
+    #
+    #     form = ContactForm(request.POST)
+    #
+    #     # Если не выполнить проверку на правильность ввода данных,
+    #     # то не сможем забрать эти данные из формы... хотя что здесь проверять?
+    #     if form.is_valid():
+    #         email_subject = 'EVILEG :: Сообщение через контактную форму '
+    #         email_body = "С сайта отправлено новое сообщение\n\n" \
+    #                      "Имя отправителя: %s \n" \
+    #                      "E-mail отправителя: %s \n\n" \
+    #                      "Сообщение: \n" \
+    #                      "%s " % \
+    #                      (form.cleaned_data['name'], form.cleaned_data['email'], form.cleaned_data['message'])
+    #
+    #         # и отправляем сообщение
+    #         # send_mail(email_subject, email_body, settings.EMAIL_HOST_USER, ['target_email@example.com'], fail_silently=False)
+    #
+    #     return render(request, template_name=self.template_name, context=context)

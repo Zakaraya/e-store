@@ -27,19 +27,19 @@
 </style>
 
 <body>
-<div class="cart">
-    {% with total_items=cart|length %}
-        {% if cart|length > 0 %}
-            Your cart:
-            <a href="{% url "cart:cart_detail" %}">
-                {{ total_items }} item{{ total_items|pluralize }},
-                ${{ cart.get_total_price }}
-            </a>
-        {% else %}
-            Your cart is empty.
-        {% endif %}
-    {% endwith %}
-</div>
+{#<div class="cart">#}
+{#    {% with total_items=cart|length %}#}
+{#        {% if cart|length > 0 %}#}
+{#            Your cart:#}
+{#            <a href="{% url "cart:cart_detail" %}">#}
+{#                {{ total_items }} item{{ total_items|pluralize }},#}
+{#                ${{ cart.get_total_price }}#}
+{#            </a>#}
+{#        {% else %}#}
+{#            Your cart is empty.#}
+{#        {% endif %}#}
+{#    {% endwith %}#}
+{#</div>#}
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
@@ -76,8 +76,10 @@
                 <a href="{% url 'main:profile' %}" class="btn btn-warning">ТЕСТ</a>
                 <li class="nav-item active">
             </ul>
-
             {% endif %}
+            <li>
+                <a class="nav-link text-link" href="{% url 'main:contacts' %}">Контакты</a>
+                </li>
 
             </ul>
 
@@ -99,7 +101,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-3">
-            <h1 class="my-4">Shop Name</h1>
+            <h1 class="my-4">iZugdidi</h1>
             <div class="list-group">
                 {% for category in categories %}
                     <a href="{{ category.url }}" class="list-group-item">{{ category.name }}</a>

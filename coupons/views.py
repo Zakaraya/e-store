@@ -3,6 +3,7 @@ from django.views.decorators.http import require_POST
 from django.utils import timezone
 from .models import Coupon
 from .forms import CouponApplyForm
+from django.core.exceptions import ObjectDoesNotExist
 
 
 @require_POST
@@ -17,6 +18,7 @@ def coupon_apply(request):
                                         valid_to__gte=now,
                                         active=True)
             request.session['coupon_id'] = coupon.id
-        except Coupon.DoesNotExists:
+        # except Coupon.DoesNotExists:
+        except ObjectDoesNotExist:
             request.session['coupon_id'] = None
     return redirect('cart:cart_detail')
