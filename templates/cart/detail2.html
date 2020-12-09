@@ -1,5 +1,6 @@
 {% extends "main/base.html" %}
 {% load static %}
+
 {% block content %}
     <div class="row">
         <div class="col-lg-12">
@@ -73,7 +74,7 @@
     {% csrf_token %}
                                   {% if cart.coupon == None %}
                       <tr class="subtotal2">
-                    <p id="test">YT</p>
+                    <p id="test">Неверный промокод</p>
                 </tr>
             {%  endif %}
 </form>

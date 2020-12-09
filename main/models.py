@@ -7,9 +7,9 @@ from django.urls import reverse
 User = get_user_model()
 
 
-def get_models_for_count(*model_names):
-    """Функция получения количества товаров в определенной категории"""
-    return [models.Count(model_name) for model_name in model_names]
+# def get_models_for_count(*model_names):
+#     """Функция получения количества товаров в определенной категории"""
+#     return [models.Count(model_name) for model_name in model_names]
 
 
 def get_product_url(obj, view_name):
@@ -20,7 +20,7 @@ def get_product_url(obj, view_name):
 
 class LatestProductManager:
     @staticmethod
-    def get_products_for_main_page(*args, **kwargs):
+    def get_products_for_main_page(*args):
         """Функция для вывода всех товаров в обратном порядке на главную страницу"""
         products = []
         ct_models = ContentType.objects.filter(model__in=args)
@@ -35,43 +35,43 @@ class LatestProducts:
     objects = LatestProductManager()
 
 
-class CategoryManager(models.Manager):
-    """Класс категорий товаров"""
-
-    def get_queryset(self):
-        """Получение результата работы queryset'а"""
-        return super(CategoryManager, self).get_queryset()
-
-    CATEGORY_NAME_COUNT_NAME = {
-        'Айфоны': 'iphone__count',
-        'Айпады': 'ipad__count'
-    }
-
-    def get_categories_for_left_sidebar(self):
-        """Функция получения категорий в sidebar"""
-        pass
-        # category_models = get_models_for_count('ipad', 'iphone')
-        # category_models = get_models_for_count('ipads', 'iphones')
-        # queryset_categories = list(self.get_queryset().annotate(*category_models))
-        # # return [
-        # #     dict(name=item['category_name'], slug=item['slug'],
-        # #          count=item[self.CATEGORY_NAME_COUNT_NAME[item['category_name']]])
-        # #     for item in queryset_categories]
-        # data = [
-        #     dict(name=item.category_name, url=item.get_absolute_url(), count=getattr(item, self.CATEGORY_NAME_COUNT_NAME[item.category_name]))
-        #     for item in queryset_categories
-        # ]
-        # return data
-        # qs = self.get_queryset().annotate(models.Count('iphones'))
-        # qs = self.get_queryset(models.Count('iphone'))
-        # print(qs)
+# class CategoryManager(models.Manager):
+#     """Класс категорий товаров"""
+#
+#     def get_queryset(self):
+#         """Получение результата работы queryset'а"""
+#         return super(CategoryManager, self).get_queryset()
+#
+#     CATEGORY_NAME_COUNT_NAME = {
+#         'Айфоны': 'iphone__count',
+#         'Айпады': 'ipad__count'
+#     }
+#
+#     def get_categories_for_left_sidebar(self):
+#         """Функция получения категорий в sidebar"""
+#         pass
+#         # category_models = get_models_for_count('ipad', 'iphone')
+#         # category_models = get_models_for_count('ipads', 'iphones')
+#         # queryset_categories = list(self.get_queryset().annotate(*category_models))
+#         # # return [
+#         # #     dict(name=item['category_name'], slug=item['slug'],
+#         # #          count=item[self.CATEGORY_NAME_COUNT_NAME[item['category_name']]])
+#         # #     for item in queryset_categories]
+#         # data = [
+#         #     dict(name=item.category_name, url=item.get_absolute_url(), count=getattr(item, self.CATEGORY_NAME_COUNT_NAME[item.category_name]))
+#         #     for item in queryset_categories
+#         # ]
+#         # return data
+#         # qs = self.get_queryset().annotate(models.Count('iphones'))
+#         # qs = self.get_queryset(models.Count('iphone'))
+#         # print(qs)
 
 
 class CategoryProduct(models.Model):
     """"Таблица категорий продуктов"""
     category_name = models.CharField(max_length=255, verbose_name='Название категории')
     slug = models.SlugField(unique=True)
-    objects = CategoryManager()
+    # objects = CategoryManager()
 
     def __str__(self):
         return self.category_name

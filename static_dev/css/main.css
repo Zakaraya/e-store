@@ -129,5 +129,50 @@ h1,h2,h3,h4,h5,h6{
 	#counter-item-cart{
 		margin-top: 1em;
 	}
-
 }
+
+.dento-contact-area {
+  position: relative;
+  z-index: 1; }
+.dento-contact-area .google-maps {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 470px; }
+    @media only screen and (max-width: 767px) {
+      .dento-contact-area .google-maps {
+        height: 280px; } }
+.dento-contact-area .google-maps iframe {
+      width: 100%;
+      height: 100%;
+      border: none; }
+
+.contact-information {
+  position: relative;
+  z-index: 1;
+  padding: 30px 50px;
+  background-color: #00aeef;
+  border-radius: 3px; }
+  @media only screen and (max-width: 767px) {
+    .contact-information {
+      margin-bottom: 100px; } }
+.contact-information h5 {
+    color: #ffffff; }
+.contact-information p {
+    color: #ffffff; }
+
+.contact-form {
+  position: relative;
+  z-index: 1; }
+.contact-form .form-control {
+    width: 100%;
+    height: 46px;
+    padding: 0 15px;
+    font-size: 13px;
+    font-style: italic; }
+.contact-form .form-control:focus {
+      box-shadow: none;
+      border-color: #00aeef; }
+.contact-form textarea.form-control {
+    height: 110px;
+    padding: 15px; }

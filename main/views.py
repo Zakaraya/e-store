@@ -11,7 +11,6 @@ from orders.models import Order
 from django.views import View
 from django.core.mail import send_mail
 
-# from .forms import ContactForm
 
 class BaseView(View):
     """Базовое представление"""
@@ -19,9 +18,10 @@ class BaseView(View):
     def get(self, request, *args, **kwargs):
         # categories = CategoryProduct.objects.get_categories_for_left_sidebar()
         # ИСПРАВИТЬ!!!!!!!!!!!!!
-        categories = [{'name': 'Айпады', 'url': '/category/ipads/', 'count': 2},
-                      {'name': 'Айфоны', 'url': '/category/iphones/', 'count': 2}]
+        categories = [{'name': 'iPhone', 'url': '/category/iphones/', 'count': 2},
+                      {'name': 'iPad', 'url': '/category/ipads/', 'count': 2}]
         products = LatestProducts.objects.get_products_for_main_page('iphone', 'ipad')
+        # products = Product.objects.all()
         context = {
             'categories': categories,
             'products': products,
@@ -49,6 +49,7 @@ class ProductDetailView(CategoryDetailMixin, DetailView):
 
 class CategoryDetailView(CategoryDetailMixin, DetailView):
     """Класс для оторбажения товаров, относящихся к определенной категории"""
+
     model = CategoryProduct
     queryset = CategoryProduct.objects.all()
     context_object_name = 'category'
@@ -59,7 +60,9 @@ class CategoryDetailView(CategoryDetailMixin, DetailView):
 class LoginView(View):
     def get(self, request, *args, **kwargs):
         form = LoginForm(request.POST or None)
-        categories = CategoryProduct.objects.all()
+        # categories = CategoryProduct.objects.all()
+        categories = [{'name': 'iPhone', 'url': '/category/iphones/', 'count': 2},
+                      {'name': 'iPad', 'url': '/category/ipads/', 'count': 2}]
         context = {'form': form, 'categories': categories}
         return render(request, 'main/login.html', context)
 
@@ -78,7 +81,9 @@ class LoginView(View):
 class RegistrationView(View):
     def get(self, request, *args, **kwargs):
         form = RegistrationForm(request.POST or None)
-        categories = CategoryProduct.objects.all()
+        # categories = CategoryProduct.objects.all()
+        categories = [{'name': 'iPhone', 'url': '/category/iphones/', 'count': 2},
+                      {'name': 'iPad', 'url': '/category/ipads/', 'count': 2}]
         context = {'form': form, 'categories': categories}
         return render(request, 'main/registration.html', context)
 
@@ -113,32 +118,26 @@ class ProfileView(View):
 
 
 class EContactsView(View):
-    template_name = 'main/contacts_info.html'
+    # template_name = 'main/contacts_info.html'
+    def get(self, request, *args, **kwargs):
+        categories = [{'name': 'iPhone', 'url': '/category/iphones/', 'count': 2},
+                      {'name': 'iPad', 'url': '/category/ipads/', 'count': 2}]
+        return render(request, 'main/contacts_info.html', {'categories': categories})
 
-    # # В случае get запроса, мы будем отправлять просто страницу с контактной формой
-    # def get(self, request, *args, **kwargs):
-    #     context = {'contact_form': ContactForm()}
-    #     # context.update(csrf(request))    # Обязательно добавьте в шаблон защитный токен
-    #
-    #     return render(request, template_name=self.template_name, context=context)
-    #
-    # def post(self, request, *args, **kwargs):
-    #     context = {}
-    #
-    #     form = ContactForm(request.POST)
-    #
-    #     # Если не выполнить проверку на правильность ввода данных,
-    #     # то не сможем забрать эти данные из формы... хотя что здесь проверять?
-    #     if form.is_valid():
-    #         email_subject = 'EVILEG :: Сообщение через контактную форму '
-    #         email_body = "С сайта отправлено новое сообщение\n\n" \
-    #                      "Имя отправителя: %s \n" \
-    #                      "E-mail отправителя: %s \n\n" \
-    #                      "Сообщение: \n" \
-    #                      "%s " % \
-    #                      (form.cleaned_data['name'], form.cleaned_data['email'], form.cleaned_data['message'])
-    #
-    #         # и отправляем сообщение
-    #         # send_mail(email_subject, email_body, settings.EMAIL_HOST_USER, ['target_email@example.com'], fail_silently=False)
-    #
-    #     return render(request, template_name=self.template_name, context=context)
+
+def contact(request):
+    if request.method == 'POST':
+        message_name = request.POST['message-name']
+        message_email = request.POST['message-email']
+        message = request.POST['message']
+
+        send_mail(
+            message_name,
+            message,
+            message_email,  # на какой емейл
+            ['zakaraya2000@mail.ru']  # с какого емейла
+        )
+
+        return render(request, 'main/contacts_info.html', {'message_name': message_name})
+    else:
+        return render(request, 'main/contacts_info.html', {})

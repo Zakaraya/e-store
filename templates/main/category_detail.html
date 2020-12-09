@@ -1,7 +1,7 @@
 {% extends 'main/base.html' %}
-
+{% block title %}The current time{% endblock %}
 {% block content %}
-
+ <div class="col-lg-9">
 <nav aria-label="breadcrumb" class="mt-3">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{% url 'main:base' %}">Главная</a></li>
@@ -32,5 +32,5 @@
   </div>
 {% endfor %}
 </div>
-
+ </div>
 {% endblock content %}
