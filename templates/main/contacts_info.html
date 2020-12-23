@@ -39,15 +39,15 @@
                     <!-- Contact Information -->
                     <div class="col-12 col-md-4">
                         <div class="contact-information">
-                            <h5>Address</h5>
-                            <p>10 West Elm, Chicago, 60610 USA</p>
+                            <h5>მისამართი</h5>
+                            <p>გამსახურდიას გამზირი #23 2016 Zugdidi, Georgia</p>
 
-                            <h5>Phone</h5>
-                            <p>111 222.3333</p>
+                            <h5>ტელეფონი</h5>
+                            <p>+995 592 27 27 28</p>
 
 
-                            <h5>Email</h5>
-                            <p class="mb-0">drJ@gmail.com</p>
+                            <h5>Facebook</h5>
+                            <p class="mb-0">izugdidi</p>
                         </div>
                     </div>
 
@@ -56,27 +56,27 @@
                         <div class="contact-form">
                             <!-- Section Heading -->
                             <div class="section-heading">
-                                <h2>Get In Touch</h2>
+                                <h2>მოგვწერეთ</h2>
                                 <div class="line"></div>
                             </div>
                             <!-- Form -->
                             <form action="{% url 'main:contact' %}" method="post">
                                 {% csrf_token %}
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-12">
                                         <input type="text" name="message-name" class="form-control mb-30"
                                                placeholder="Your Name">
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-12">
                                         <input type="email" name="message-email" class="form-control mb-30"
                                                placeholder="Your Email">
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-lg-12">
                                         <textarea name="message" class="form-control mb-30"
                                                   placeholder="Your Message"></textarea>
                                     </div>
-                                    <div class="col-12">
-                                        <button type="submit" class="btn btn-danger update-cart2">Send Message</button>
+                                    <div class="col-lg-12">
+                                        <button type="submit" class="btn btn-danger update-cart2" style="width: 100%; margin-top: 1em; margin-bottom: 1em">Send Message</button>
                                     </div>
                                 </div>
                             </form>

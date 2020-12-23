@@ -18,7 +18,7 @@ class CategoryDetailMixin(SingleObjectMixin):
             context = super().get_context_data(**kwargs)
             # ИСПРАВИТЬ!!!!!!!!!!!
             context['categories'] = [{'name': 'iPhone', 'url': '/category/iphones/', 'count': 2},
-                                     {'name': 'iPhone', 'url': '/category/ipads/', 'count': 2}]
+                                     {'name': 'iPad', 'url': '/category/ipads/', 'count': 2}]
             context['category_products'] = model.objects.all()
 
             return context

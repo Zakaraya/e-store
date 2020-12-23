@@ -4,6 +4,8 @@ from coupons.models import Coupon
 from django.core.validators import MinValueValidator, MaxValueValidator
 from decimal import Decimal
 
+from django.urls import reverse
+
 
 class Order(models.Model):
     # customer = models.ForeignKey('main.Customer', verbose_name='Покупатель', related_name='related_orders',
@@ -37,6 +39,18 @@ class Order(models.Model):
         total_cost = sum(item.get_cost() for item in self.items.all())
         return total_cost - total_cost * (self.discount / Decimal('100'))
 
+    def test(self):
+        all_product = [item.get_cost() for item in self.items.all()]
+        return all_product
+
+    def get_all_product_title(self):
+        all_product = [item.get_product_title() for item in self.items.all()]
+        return all_product
+
+    def get_product_quantity(self):
+        quantity = [item.get_product_quantity() for item in self.items.all()]
+        return quantity
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
@@ -49,3 +63,9 @@ class OrderItem(models.Model):
 
     def get_cost(self):
         return self.price * self.quantity
+
+    def get_product_title(self):
+        return self.product
+
+    def get_product_quantity(self):
+        return self.quantity

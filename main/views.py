@@ -6,7 +6,7 @@ from .forms import LoginForm, RegistrationForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 
-from orders.models import Order
+from orders.models import Order, OrderItem
 
 from django.views import View
 from django.core.mail import send_mail
@@ -110,26 +110,35 @@ class RegistrationView(View):
 
 
 class ProfileView(View):
-    def get(self, request, *args, **kwargs):
-        customer = Customer.objects.get(user=request.user)
-        categories = CategoryProduct.objects.all()
-        orders = Order.objects.filter(customer=customer).order_by('-created')
-        return render(request, 'main/profile.html', {'orders': orders, 'categories': categories})
 
-
-class EContactsView(View):
-    # template_name = 'main/contacts_info.html'
     def get(self, request, *args, **kwargs):
+        # customer = Customer.objects.get(user=request.user.phone)
+        customer = request.user
+        # categories = CategoryProduct.objects.all()
         categories = [{'name': 'iPhone', 'url': '/category/iphones/', 'count': 2},
                       {'name': 'iPad', 'url': '/category/ipads/', 'count': 2}]
-        return render(request, 'main/contacts_info.html', {'categories': categories})
+        products = Product.objects.all()
+        test = OrderItem.objects.all()
+        orders = Order.objects.filter(email=customer.email).order_by('-created')
+        return render(request, 'main/profile.html', {'orders': orders, 'products': products, 'quantity': test, 'categories': categories})
+
+
+# class EContactsView(View):
+#     # template_name = 'main/contacts_info.html'
+#     def get(self, request, *args, **kwargs):
+#         categories = [{'name': 'iPhone', 'url': '/category/iphones/', 'count': 2},
+#                       {'name': 'iPad', 'url': '/category/ipads/', 'count': 2}]
+#         return render(request, 'main/contacts_info.html', {'categories': categories})
 
 
 def contact(request):
+    categories = [{'name': 'iPhone', 'url': '/category/iphones/', 'count': 2},
+                  {'name': 'iPad', 'url': '/category/ipads/', 'count': 2}]
     if request.method == 'POST':
         message_name = request.POST['message-name']
         message_email = request.POST['message-email']
         message = request.POST['message']
+        # categories = CategoryProduct.objects.all()
 
         send_mail(
             message_name,
@@ -138,6 +147,6 @@ def contact(request):
             ['zakaraya2000@mail.ru']  # с какого емейла
         )
 
-        return render(request, 'main/contacts_info.html', {'message_name': message_name})
+        return render(request, 'main/contacts_info.html', {'message_name': message_name, 'categories': categories})
     else:
-        return render(request, 'main/contacts_info.html', {})
+        return render(request, 'main/contacts_info.html', {'categories': categories})

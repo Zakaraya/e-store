@@ -24,7 +24,7 @@ SECRET_KEY = 'ysv5aa*j@-f#o^_sqibxzxdl+6xhiss(9wg)s0np*=*c$d8cp*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['5ef151d2d393.ngrok.io', '127.0.0.1']
+ALLOWED_HOSTS = ['1e5fda603255.ngrok.io', '127.0.0.1']
 
 # Application definition
 
@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'orders',
     'coupons',
     'crispy_forms',
+
+    # 'haystack'
 ]
 
 MIDDLEWARE = [
@@ -145,3 +147,10 @@ EMAIL_HOST_USER = 'boriskazzz12@gmail.com'
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False
 # EMAIL_USE_SSL = False
+#
+# HAYSTACK_CONNECTIONS = {
+#     'default': {
+#         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+#         'URL': 'http://127.0.0.1:8983/solr/estore'
+#     },
+# }

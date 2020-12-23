@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import BaseView, ProductDetailView, CategoryDetailView, LoginView, RegistrationView, ProfileView, EContactsView,contact
+from .views import BaseView, ProductDetailView, CategoryDetailView, LoginView, RegistrationView, ProfileView, contact
 from django.contrib.auth.views import LogoutView
 
 app_name = 'main'

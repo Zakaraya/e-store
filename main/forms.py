@@ -69,3 +69,7 @@ class RegistrationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'password', 'confirm_password', 'first_name', 'last_name', 'address', 'phone', 'email']
+
+
+class SearchForm(forms.Form):
+    query = forms.CharField()
