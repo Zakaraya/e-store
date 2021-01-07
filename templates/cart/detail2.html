@@ -71,12 +71,7 @@
             {% endwith %}
         {% endfor %}
     </div>
-                </div>
-            </div>
-        </div>
-
-    {% endif %}
-       {% if cart.coupon %}
+         {% if cart.coupon %}
 {#            <tr class="total">#}
 {#                <td><strong>Применен: </strong></td>#}
 {#        <td colspan="4"></td>#}
@@ -93,7 +88,7 @@
         <td class="num neg">
             Итого - {{ cart.get_discount|floatformat:"2" }} руб.
         </td>
-    </tr></strong>
+    </tr></strong>{% endif %}
 
            <form action="{% url "coupons:apply" %}" method="post">
                     {{ coupon_apply_form }}
@@ -105,7 +100,48 @@
                         </tr>
                     {% endif %}
                 </form>
-{% endif %}
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+    {% endif %}
+{#       {% if cart.coupon %}#}
+{#            <tr class="total">#}
+{#                <td><strong>Применен: </strong></td>#}
+{#        <td colspan="4"></td>#}
+{#        <td class="num"><strong>#}
+{#            {{ cart.get_total_price_after_discount|floatformat:"2" }} руб.#}
+{#        </strong></td>#}
+{#    </tr>#}
+{#        <strong><tr>#}
+{#        <td>#}
+{#            Применен купон "{{ cart.coupon.code }}"#}
+{#            (скидка {{ cart.coupon.discount }}%)#}
+{#        </td>#}
+{#        <td colspan="4"></td>#}
+{#        <td class="num neg">#}
+{#            Итого - {{ cart.get_discount|floatformat:"2" }} руб.#}
+{#        </td>#}
+{#    </tr></strong>#}
+{##}
+{#           <form action="{% url "coupons:apply" %}" method="post">#}
+{#                    {{ coupon_apply_form }}#}
+{#                    <input type="submit" value="Применить" onclick="chpok('test')">#}
+{#                    {% csrf_token %}#}
+{#                    {% if cart.coupon == None %}#}
+{#                        <tr class="subtotal2">#}
+{#                            <p id="test">Неверный промокод</p>#}
+{#                        </tr>#}
+{#                    {% endif %}#}
+{#                </form>#}
+{#{% endif %}#}
+
+
+
 {% endblock %}
 
 

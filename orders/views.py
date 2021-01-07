@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from .models import OrderItem
+from .models import OrderItem, Order
 from .forms import OrderCreateForm
 from cart.cart import Cart
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import get_object_or_404
-from .models import Order
+from main.models import Customer
+
 
 @staff_member_required
 def admin_order_detail(request, order_id):
@@ -15,6 +16,7 @@ def admin_order_detail(request, order_id):
 
 
 def order_create(request):
+    global address
     cart = Cart(request)
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
@@ -38,7 +40,24 @@ def order_create(request):
             return render(request, 'orders/order/created.html',
                           {'order': order})
     else:
-        form = OrderCreateForm
+        # form = OrderCreateForm({'first_name': request.user})
+        user = request.user
+        customer = Customer.objects.filter(user__username=user)
+        for i in customer:
+            address = i.address
+        if request.user.is_authenticated:
+            data = {
+                    'first_name': request.user.first_name,
+                    'last_name': request.user.last_name,
+                    'email': request.user.email,
+                    'address': address,
+                    'postal_code': 'TEST',
+                    'city': 'TEST'
+                    }
+            form = OrderCreateForm(data)
+        else:
+            form = OrderCreateForm()
+
     # return render(request, 'orders/order/create.html',
     return render(request, 'orders/order/create2.html',
                   {'cart': cart, 'form': form})

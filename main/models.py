@@ -106,6 +106,11 @@ class Product(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        """Функция получения названия view, которая передается в get_product_url для отображения необходимого товара"""
+        # return get_product_url(self, 'search:search')
+        return get_product_url(self, 'main:product_detail')
+
 
 class Iphone(Product):
     """Таблица с Iphones"""

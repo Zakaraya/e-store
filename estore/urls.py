@@ -9,6 +9,8 @@ urlpatterns = [
     path('cart/', include('cart.urls', namespace='cart')),
     path('orders/', include('orders.urls', namespace='orders')),
     path('coupons/', include('coupons.urls', namespace='coupons')),
+    # path('search/', search_views.search, name='search'),
+    path('search/', include('search.urls', namespace='search')),
     path('', include('main.urls')),
 
 ]

@@ -122,7 +122,6 @@ class ProfileView(View):
         orders = Order.objects.filter(email=customer.email).order_by('-created')
         return render(request, 'main/profile.html', {'orders': orders, 'products': products, 'quantity': test, 'categories': categories})
 
-
 # class EContactsView(View):
 #     # template_name = 'main/contacts_info.html'
 #     def get(self, request, *args, **kwargs):

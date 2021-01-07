@@ -24,7 +24,7 @@ SECRET_KEY = 'ysv5aa*j@-f#o^_sqibxzxdl+6xhiss(9wg)s0np*=*c$d8cp*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['1e5fda603255.ngrok.io', '127.0.0.1']
+ALLOWED_HOSTS = ['1e5fda603255.ngrok.io', '127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -40,9 +40,11 @@ INSTALLED_APPS = [
     'cart',
     'orders',
     'coupons',
+    'search',
     'crispy_forms',
 
     # 'haystack'
+    'django_elasticsearch_dsl',
 ]
 
 MIDDLEWARE = [
@@ -154,3 +156,9 @@ EMAIL_USE_TLS = False
 #         'URL': 'http://127.0.0.1:8983/solr/estore'
 #     },
 # }
+
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': 'localhost:9200'
+    },
+}
