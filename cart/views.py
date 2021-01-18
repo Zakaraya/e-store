@@ -71,13 +71,18 @@ def updateItem(request):
     action = data['action']
     quantity = data['quantity']
     cart = Cart(request)
+    # quantity = cart.cart[productId]['quantity']
+    # print(cart.cart[productId]['quantity'])
     product = Product.objects.get(id=productId)
     form = CartAddProductForm(request.POST)
+
     if action == 'remove':
-        quantity -= 2
+        if cart.cart[productId]['quantity'] == 1:
+            quantity = 0
+        else:
+            quantity -= 2
     if form.is_valid():
         cd = form.cleaned_data
-        print(cd)
         cart.add(product=product,
                  quantity=quantity,
                  update_quantity=cd['update'])

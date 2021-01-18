@@ -39,9 +39,9 @@ class Order(models.Model):
         total_cost = sum(item.get_cost() for item in self.items.all())
         return total_cost - total_cost * (self.discount / Decimal('100'))
 
-    def test(self):
-        all_product = [item.get_cost() for item in self.items.all()]
-        return all_product
+    # def test(self):
+    #     all_product = [item.get_cost() for item in self.items.all()]
+    #     return all_product
 
     def get_all_product_title(self):
         all_product = [item.get_product_title() for item in self.items.all()]

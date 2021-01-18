@@ -71,18 +71,20 @@
                                               <td>{{ item.price }}</td>
                                               <td>{{ item.quantity }}</td>
                                               <td><strong>{% widthratio item.price 1 item.quantity %},00 </strong></td>
+                                              <td><strong>{{ item.discount }}  </strong></td>
 {#                                              {% endif %}#}
                                               </tr>
                                               {% endfor %}
                                           </tbody>
-
+ <td>Общая сумма: {{ order.get_total_cost }}</td>
                                       </table>
                                     <hr>
                                     <h4 class="text-center">Дополнительная информация</h4>
                                   <p>Имя: <strong>{{ order.first_name }}</strong></p>
                                   <p>Фамилия: <strong>{{ order.last_name }}</strong></p>
-                                  <p>Телефон: <strong>{{ order.email }}</strong></p>
+                                  <p>Email: <strong>{{ order.email }}</strong></p>
                                   <p>Адрес: <strong>{{ order.address }}</strong></p>
+                                  <p>Дата создания: <strong>{{ order.created }}</strong></p>
                                   </div>
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>

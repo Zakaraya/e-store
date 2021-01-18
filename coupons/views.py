@@ -21,4 +21,5 @@ def coupon_apply(request):
         # except Coupon.DoesNotExists:
         except ObjectDoesNotExist:
             request.session['coupon_id'] = None
-    return redirect('cart:cart_detail')
+    # return redirect('cart:cart_detail')
+    return redirect('orders:order_create')

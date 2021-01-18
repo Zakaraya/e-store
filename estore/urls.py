@@ -11,6 +11,9 @@ urlpatterns = [
     path('coupons/', include('coupons.urls', namespace='coupons')),
     # path('search/', search_views.search, name='search'),
     path('search/', include('search.urls', namespace='search')),
+
+    # path('paypal/', include('paypal.standard.ipn.urls')),
+
     path('', include('main.urls')),
 
 ]

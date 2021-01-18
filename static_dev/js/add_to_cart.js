@@ -5,6 +5,10 @@ for (var i = 0; i < updateBtns.length; i++){
          var action = this.dataset.action
          let model = this.dataset.model
          var id_quantity = 1
+
+        // var test = document.getElementById("count-product").value;
+        //  alert(test);
+
         if (document.getElementById("id_quantity")) {
             id_quantity = document.getElementById("id_quantity").options.selectedIndex + 1;
         }

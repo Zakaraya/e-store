@@ -86,4 +86,5 @@ class Cart(object):
         return Decimal('0')
 
     def get_total_price_after_discount(self):
-        return self.get_total_price() - self.get_discount()
+        # return self.get_total_price() - self.get_discount()
+        return float('{0:.2f}'.format(self.get_total_price() - self.get_discount()))

@@ -2,7 +2,12 @@
 {% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
 {% load static %}
+{% block row %}
+{% endblock %}
 {% block content %}
+            <div class="col-lg-3">
+            <h1 class="my-4">iZugdidi</h1>
+        </div>
 <div class="row">
     <div class="col-lg-6">
         <div class="box-element" id="form-wrapper">
@@ -69,13 +74,34 @@
             {% endfor %}
 				<h5>Items:   {{ cart|length }}</h5>
             {% if cart.coupon %}
-        <li>
-            "{{ cart.coupon.code }}" ({{ cart.coupon.discount }}% off)
-            <span>- ${{ cart.get_discount|floatformat:"2" }}</span>
+{#        <li>#}
+{#            "{{ cart.coupon.code }}" ({{ cart.coupon.discount }}% off)#}
+{#            <span>- ${{ cart.get_discount|floatformat:"2" }}</span>#}
+{#        </li>#}
+
+                <li class="list-group-item d-flex justify-content-between bg-light">
+          <div class="text-success">
+            <h6 class="my-0">Promo code</h6>
+            <small>"{{ cart.coupon.code }}"</small> ({{ cart.coupon.discount }}% off)
+          </div>
+          <span class="text-success">- ${{ cart.get_discount|floatformat:"2" }}</span>
         </li>
+
     {% endif %}
 				<h5>Total:   {{ cart.get_total_price_after_discount|floatformat:"2" }} Руб.</h5>
         </div>
+
+        <form class="card p-2" action="{% url "coupons:apply" %}" method="post">
+        <div class="input-group">
+{#          <input type="text" class="form-control" placeholder="Promo code">#}
+              {{ coupon_apply_form }}
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-secondary">Redeem</button>
+              {% csrf_token %}
+          </div>
+        </div>
+      </form>
+
     </div>
 </div>
 
@@ -87,3 +113,33 @@
 {#    </form>#}
 
 {% endblock %}
+
+         {% if cart.coupon %}
+{#            <tr class="total">#}
+{#                <td><strong>Применен: </strong></td>#}
+{#        <td colspan="4"></td>#}
+{#        <td class="num"><strong>#}
+{#            {{ cart.get_total_price_after_discount|floatformat:"2" }} руб.#}
+{#        </strong></td>#}
+{#    </tr>#}
+        <strong><tr>
+        <td>
+            Применен купон "{{ cart.coupon.code }}"
+            (скидка {{ cart.coupon.discount }}%)
+        </td>
+        <td colspan="4"></td>
+        <td class="num neg">
+            Итого - {{ cart.get_discount|floatformat:"2" }} руб.
+        </td>
+    </tr></strong>{% endif %}
+
+           <form action="{% url "coupons:apply" %}" method="post">
+                    {{ coupon_apply_form }}
+                    <input type="submit" value="Применить" onclick="chpok('test')">
+                    {% csrf_token %}
+                    {% if cart.coupon == None %}
+                        <tr class="subtotal2">
+                            <p id="test">Неверный промокод</p>
+                        </tr>
+                    {% endif %}
+                </form>
