@@ -11,30 +11,30 @@
         </div>
         {% else %}
         <div class="col-md-12">
-        <table class="table">
-            <thead>
-                <th scope="col">Номер</th>
+        <table class="table" id="profile-table">
+            <thead id="profile-thead">
+                <th id="profile-th" scope="col">№</th>
 {#                <th scope="col">Статус</th>#}
-                <th scope="col">Сумма</th>
-                <th scope="col">Товар</th>
-                <th scope="col">Дополнительно</th>
+                <th id="profile-th" scope="col">სულ</th>
+                <th id="profile-th" scope="col">პროდუქტი</th>
+                <th id="profile-th" scope="col">პარამეტრები</th>
             </thead>
 
-            <tbody>
+            <tbody id="profile-tbody">
                 {% for order in orders %}
 
-                    <tr>
-                        <th scope="row">{{ order.id }}</th>
+                    <tr id="profile-tr">
+                        <th id="profile-th" scope="row">ID: {{ order.id }}</th>
 {#                        <td>{{ order.get_status_display }}</td>#}
-                        <td>{{ order.get_total_cost }}</td>
-                        <td>
+                        <td id="profile-td"><span class="profile-mobile-table">სულ: </span>{{ order.get_total_cost }}</td>
+                        <td id="profile-td">
                             <ul>
                             {% for order_product in order.get_all_product_title %}
                             <li>{{ order_product }}</li>
                                 {% endfor %}
                             </ul>
                         </td>
-                    <td>
+                    <td id="profile-td">
                         <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal-{{ order.id }}"> Дополнительно</button>
 
                         <!-- Modal -->
@@ -48,46 +48,46 @@
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    <h4 class="text-center">Товар-{{ order.id }}</h4>
-                                      <table class="table">
-                                          <thead>
-                                          <tr>
-                                          <th scope="col">Название</th>
-                                          <th scope="col">Изображение</th>
-                                          <th scope="col">Цена</th>
-                                          <th scope="col">Кол-во</th>
-                                          <th scope="col">Общая цена</th>
-                                          </tr>
-                                          </thead>
+                                    <h4 class="text-center">შეკვეთა - {{ order.id }}</h4>
+                                      <table class="table" id="profile-table">
+{#                                          <thead id="profile-thead" style="display: block">#}
+{#                                          <tr id="profile-tr">#}
+{#                                          <th id="profile-th" scope="col">Название</th>#}
+{#                                          <th id="profile-th" scope="col">Изображение</th>#}
+{#                                          <th id="profile-th" scope="col">Цена</th>#}
+{#                                          <th id="profile-th" scope="col">Кол-во</th>#}
+{#                                          <th id="profile-th" scope="col">Общая цена</th>#}
+{#                                          </tr>#}
+{#                                          </thead>#}
 
-                                          <tbody>
+                                          <tbody id="profile-tbody">
 
                                           {% for item in order.items.all %}
 
-                                              <tr>
+                                              <tr id="profile-tr">
 {#                                              {% if item in order.get_all_product_title %}#}
-                                              <th scope="row">{{ item.product }}</th>
-                                              <td class="w-25"><img src="{{ item.product.image.url }}" class="img-fluid"></td>
-                                              <td>{{ item.price }}</td>
-                                              <td>{{ item.quantity }}</td>
-                                              <td><strong>{% widthratio item.price 1 item.quantity %},00 </strong></td>
-                                              <td><strong>{{ item.discount }}  </strong></td>
+                                              <th id="profile-th" scope="row">{{ item.product }}</th>
+                                              <td id="profile-td" class="w-25"><img src="{{ item.product.image.url }}" class="img-fluid"></td>
+                                              <td id="profile-td"><span class="profile-mobile-table">ფასი: </span>{{ item.price }}</td>
+                                              <td id="profile-td"><span class="profile-mobile-table">რაოდენობა: </span>{{ item.quantity }}</td>
+                                              <td id="profile-td"><strong><span class="profile-mobile-table">სულ: </span>{% widthratio item.price 1 item.quantity %},00 </strong></td>
+                                              <td id="profile-td"><strong>{{ item.discount }}  </strong></td>
 {#                                              {% endif %}#}
                                               </tr>
                                               {% endfor %}
                                           </tbody>
- <td>Общая сумма: {{ order.get_total_cost }}</td>
+ <td id="profile-td"><span>Оსაერთო თანხა: </span> {{ order.get_total_cost }}</td>
                                       </table>
                                     <hr>
                                     <h4 class="text-center">Дополнительная информация</h4>
-                                  <p>Имя: <strong>{{ order.first_name }}</strong></p>
-                                  <p>Фамилия: <strong>{{ order.last_name }}</strong></p>
+                                  <p>სახელი: <strong>{{ order.first_name }}</strong></p>
+                                  <p>გვარი: <strong>{{ order.last_name }}</strong></p>
                                   <p>Email: <strong>{{ order.email }}</strong></p>
-                                  <p>Адрес: <strong>{{ order.address }}</strong></p>
-                                  <p>Дата создания: <strong>{{ order.created }}</strong></p>
+                                  <p>მისამართი: <strong>{{ order.address }}</strong></p>
+                                  <p>შეკვეთის თარიღი: <strong>{{ order.created }}</strong></p>
                                   </div>
                                   <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">დახურვა</button>
 {#                                    <button type="button" class="btn btn-primary">Save changes</button>#}
                                   </div>
                                 </div>

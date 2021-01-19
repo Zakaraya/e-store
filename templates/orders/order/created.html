@@ -1,10 +1,7 @@
 {% extends "main/base.html" %}
 
-{% block title %}Спасибо за заказ{% endblock %}
-
 {% block content %}
-    <h1>Спасибо за заказ</h1>
-    <br>
-    <p>Ваш заказ передан на исполнение. Ваш номер заказа:
-        <strong>{{ order.id }}</strong>.</p>
+    <h2 class="text-center">მადლობა შეკვეთით<br>
+        თქვენი ბრძანება წარდგენილია აღსრულებისათვის. თქვენი შეკვეთის ნომერი:
+        <strong>{{ order.id }}</strong>.</h2>
 {% endblock %}

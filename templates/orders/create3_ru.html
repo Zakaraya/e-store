@@ -1,0 +1,225 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block row %}
+    <div class="col-lg-3" xmlns="">
+            <h1 class="my-4">iZugdidi</h1>
+        </div>
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 order-md-2 mb-4">
+      <h4 class="d-flex justify-content-between align-items-center mb-3">
+        <span class="text-muted">Your cart</span>
+        <span class="badge badge-secondary badge-pill">{{ cart|length }}</span>
+      </h4>
+      <ul class="list-group mb-3">
+      {% for item in cart %}
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+          <div>
+            <h6 class="my-0">{{ item.product.title }}</h6>
+            <small class="text-muted">Count: {{ item.quantity }}</small>
+          </div>
+          <span class="text-muted">{{ item.product.price|floatformat:2 }}</span>
+        </li>
+        {% endfor %}
+       {% if cart.coupon %}
+{#        <li>#}
+{#            "{{ cart.coupon.code }}" ({{ cart.coupon.discount }}% off)#}
+{#            <span>- ${{ cart.get_discount|floatformat:"2" }}</span>#}
+{#        </li>#}
+
+                <li class="list-group-item d-flex justify-content-between bg-light">
+          <div class="text-success">
+            <h6 class="my-0">Promo code</h6>
+            <small>"{{ cart.coupon.code }}"</small> ({{ cart.coupon.discount }}% off)
+          </div>
+          <span class="text-success">- ${{ cart.get_discount|floatformat:"2" }}</span>
+        </li>
+
+    {% endif %}
+        <li class="list-group-item d-flex justify-content-between">
+          <span>Total (RUB)</span>
+          <strong>{{ cart.get_total_price_after_discount|floatformat:"2" }} руб</strong>
+        </li>
+      </ul>
+
+
+ <form class="card p-2" action="{% url "coupons:apply" %}" method="post">
+        <div class="input-group">
+{#          <input type="text" class="form-control" placeholder="Promo code">#}
+              {{ coupon_apply_form }}
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-secondary">Redeem</button>
+              {% csrf_token %}
+          </div>
+        </div>
+      </form>
+    </div>
+          <div class="col-lg-6">
+        <div class="box-element" id="form-wrapper">
+            <form action="." method="post" class="order-form" id="form">
+                <div class="user-info">
+                    <div class="form-field">
+                        {{ form.first_name|as_crispy_field }}
+{#							<input required class="form-control" type="text" name="name" placeholder="Name..">#}
+					</div>
+					<div class="form-field">
+                        {{ form.last_name|as_crispy_field }}
+{#							<input required class="form-control" type="email" name="email" placeholder="Email..">#}
+					</div>
+                </div>
+
+                <div class="shipping-info">
+                    <hr>
+						<p>Shipping Information:</p>
+						<hr>
+						<div class="form-field">
+                            {{ form.email|as_crispy_field }}
+{#							<input class="form-control" type="text" name="address" placeholder="Address..">#}
+						</div>
+						<div class="form-field">
+                            {{ form.address|as_crispy_field }}
+{#							<input class="form-control" type="text" name="city" placeholder="City..">#}
+						</div>
+						<div class="form-field">
+                            {{ form.postal_code|as_crispy_field }}
+{#							<input class="form-control" type="text" name="state" placeholder="State..">#}
+						</div>
+						<div class="form-field">
+                            {{ form.city|as_crispy_field }}
+{#							<input class="form-control" type="text" name="zipcode" placeholder="Zip code..">#}
+						</div>
+{#						<div class="form-field">#}
+{#							<input class="form-control" type="text" name="country" placeholder="Zip code..">#}
+{#						</div>#}
+                </div>
+                <hr>
+{#                <input type="submit" id="form-button" class="btn btn-success btn-block" value="Продолжить">#}
+                {% csrf_token %}
+        <div class="box-element" id="payment-info">
+            <small>Опции оплаты</small>
+            <div id="paypal-button-container"></div>
+        </div>
+            </form>
+        </div>
+
+
+    </div>
+
+  </div>
+
+</div>
+<script src="https://www.paypal.com/sdk/js?client-id=AZoAI-AV_vDpTpmd0xthJalvFWuzVtMgHYy3wORcsM7NppgB8Pl-DmGw3m-uUiriDcZRTZNgrbbu7s5e&currency=RUB"></script>
+
+        <script>
+         var total = "{{order.get_cart_total}}"
+
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+
+            style:{
+                color: 'blue',
+                share: 'rect',
+            },
+
+            // Set up the transaction     {#value: parseFloat(total).toFixed(2)#}
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: parseFloat(total).toFixed(2)
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Show a success message to the buyer
+                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                    $(document).ready(function () {
+                    $("#form").submit()
+                        });
+                    submitFormData()
+                    {#document.location.href = "orders/order/created.html";#}
+                });
+            }
+
+
+        }).render('#paypal-button-container');
+    </script>
+
+    <script>
+
+    var total = '{{ order.get_cart_total }}'
+
+    var form = document.getElementById('form')
+
+
+    {#csrftoten = form.getElementsByTagName("input")[0].value#}
+        {#var email = "{{ form.email|as_crispy_field }}";#}
+    {#submitFormData()#}
+    form.addEventListener('submit', function (e) {
+        e.preventDefault()
+        document.getElementById('form-button').classList.add('hidden')
+        document.getElementById('payment-info').classList.remove('hidden')
+    })
+
+    {#document.getElementById('make-payment').addEventListener('click', function (e){#}
+    {#    submitFormData()})#}
+
+    function submitFormData(){
+        console.log('Payment button clicked')
+        var userFormData = {
+            'first_name': null,
+            'last_name': null,
+            'total': total,
+        }
+
+        var shippingInfo = {
+            'address': null,
+            'city': null,
+            'email': null,
+            'zipcode': null,
+        }
+
+            userFormData.first_name = document.getElementById('id_first_name').value
+            userFormData.last_name = document.getElementById('id_last_name').value
+
+            shippingInfo.address = document.getElementById('id_address').value
+            shippingInfo.city = document.getElementById('id_city').value
+            shippingInfo.email = document.getElementById('id_email').value
+            shippingInfo.zipcode = document.getElementById('id_postal_code').value
+
+        	{#var url = "/orders/process_order/"#}
+        	var url = "/orders/create/"
+	    	fetch(url, {
+	    		method:'POST',
+	    		headers:{
+	    			'Content-Type':'applicaiton/json',
+	    			'X-CSRFToken':csrftoken,
+	    		},
+	    		body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo}),
+
+	    	})
+	    	.then((response) => response.json())
+	    	.then((data) => {
+				console.log('Success:', data);
+				alert('Transaction completed');
+
+				cart = {}
+				document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+
+				window.location.href = "{% url 'main:base' %}"
+
+				})
+	    }
+</script>
+
+{% endblock %}
+
+

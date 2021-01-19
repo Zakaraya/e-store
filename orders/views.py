@@ -20,8 +20,13 @@ def admin_order_detail(request, order_id):
                   {'order': order})
 
 
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.template.loader import render_to_string
+
+
 def order_create(request):
-    global address
+    global address, order
     coupon_apply_form = CouponApplyForm()
     categories = [{'name': 'iPhone', 'url': '/category/iphones/', 'count': 2},
                   {'name': 'iPad', 'url': '/category/ipads/', 'count': 2}]
@@ -43,11 +48,24 @@ def order_create(request):
             # очистка корзины
             cart.clear()
 
+            # template = render_to_string('orders/order/email_template.html', {'name': request.user.first_name})
+            template = render_to_string('orders/order/email_template.html', {'name': 'BORISBORIS'})
+            email = EmailMessage(
+                'Thanks',
+                template,
+                settings.EMAIL_HOST_USER,
+                ['zakaraya2000@mail.ru'],
+            )
+            email.fail_silently = False
+            email.send()
+
+
             # запуск асинхронной задачи
             # order_created.delay(order.id)
             return render(request, 'orders/order/created.html',
                           {'order': order, 'coupon_apply_form': coupon_apply_form, 'categories': categories})
     else:
+
         # form = OrderCreateForm({'first_name': request.user})
         user = request.user
         customer = Customer.objects.filter(user__username=user)

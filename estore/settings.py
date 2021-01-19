@@ -24,7 +24,7 @@ SECRET_KEY = 'ysv5aa*j@-f#o^_sqibxzxdl+6xhiss(9wg)s0np*=*c$d8cp*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['1e5fda603255.ngrok.io', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['247ee8ee959d.ngrok.io', '127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -135,19 +135,20 @@ STATICFILES_DIRS = (
 
 CART_SESSION_ID = 'cart'
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Email settings
 # EMAIL_HOST = 'localhost'
 EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_PORT = '1025'
 EMAIL_PORT = 587
 # EMAIL_HOST_USER = ''
 EMAIL_HOST_USER = 'boriskazzz12@gmail.com'
-EMAIL_HOST_PASSWORD = ''
-EMAIL_USE_TLS = False
+EMAIL_HOST_PASSWORD = 'Boris1214'
+EMAIL_USE_TLS = True
 # EMAIL_USE_SSL = False
 #
 # HAYSTACK_CONNECTIONS = {

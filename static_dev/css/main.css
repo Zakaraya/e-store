@@ -1,3 +1,8 @@
+html{
+    position: relative;
+    min-height: 100%;
+}
+
 .col-lg-12{
     margin-right: 15px!important;
     padding-right: 0!important;
@@ -344,3 +349,88 @@ input:focus {
   }
 }
 
+
+.mobile-badge-danger{
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 58%;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: super;
+    background-color: #dc3545;
+    border-radius: 10rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+@media (max-width: 996px) {
+    #counter{
+        display: none;
+    }
+    .empty-cart-message{
+        margin-top: 0;
+        width: 100%
+    }
+
+}
+@media (min-width: 996px) {
+    .mobile-cart{
+        display: none;
+    }
+    .empty-cart-message{
+        margin-top: 2em;
+        width: 50%
+    }
+    .profile-mobile-table{
+        display: none;
+    }
+}
+
+@media
+	  only screen
+    and (max-width: 760px), (min-device-width: 768px)
+    and (max-device-width: 1024px)  {
+
+		/* Force table to not be like tables anymore */
+		#profile-table, #profile-thead, #profile-tbody, #profile-th, #profile-td, #profile-tr {
+			display: block;
+		}
+
+		/* Hide table headers (but not display: none;, for accessibility) */
+		#profile-thead #profile-tr {
+			position: absolute;
+			top: -9999px;
+			left: -9999px;
+		}
+
+        #profile-thead{
+            display: none;
+        }
+    /*tr:nth-child(odd) {*/
+    /*  background: #ccc;*/
+    /*}*/
+
+	/*	td {*/
+	/*		!* Behave  like a "row" *!*/
+	/*		border: none;*/
+	/*		border-bottom: 1px solid #eee;*/
+	/*		position: relative;*/
+	/*		padding-left: 50%;*/
+	/*	}*/
+
+	/*	td:before {*/
+	/*		!* Now like a table header *!*/
+	/*		position: absolute;*/
+	/*		!* Top/left values mimic padding *!*/
+	/*		top: 0;*/
+	/*		left: 6px;*/
+	/*		width: 45%;*/
+	/*		padding-right: 10px;*/
+	/*		white-space: nowrap;*/
+	/*	}*/
+
+		/*
+		Label the data
+    You could also use a data-* attribute and content for this. That way "bloats" the HTML, this way means you need to keep HTML and CSS in sync. Lea Verou has a clever way to handle with text-shadow.
+		*/
+	}

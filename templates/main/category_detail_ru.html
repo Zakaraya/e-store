@@ -4,7 +4,7 @@
  <div class="col-lg-9">
 <nav aria-label="breadcrumb" class="mt-3">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="{% url 'main:base' %}">მთავარი</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'main:base' %}">Главная</a></li>
     <li class="breadcrumb-item active">{{ category.category_name }}</li>
   </ol>
 </nav>
@@ -25,7 +25,7 @@
 {#        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>#}
 {#          <a href="{% url 'add_to_cart' ct_model=product.get_model_name slug=product.slug %}"><button class="btn btn-danger">Добавить в корзину</button></a>#}
 {#          <a href=""><button class="btn btn-danger">Добавить в корзину</button></a>#}
-          <button  data-id="{{ product.id }}" data-model="{{ product.slug }}" data-action="add" class="btn btn-danger update-cart2" id="update2" style="width: 100%"> კალათაში </button>
+          <button  data-id="{{ product.id }}" data-model="{{ product.slug }}" data-action="add" class="btn btn-danger update-cart2" id="update2" style="width: 100%">Добавить в корзину</button>
 
       </div>
     </div>
