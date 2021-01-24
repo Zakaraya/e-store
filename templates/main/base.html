@@ -29,7 +29,6 @@
         margin-bottom: 60px;
     }
 </style>
-
 <body>
 {#<div class="cart">#}
 {#    {% with total_items=cart|length %}#}
@@ -94,11 +93,11 @@
             </ul>
 
             <ul class="navbar-nav ml-auto">
-                <li>
-                    <form method="get" action="{% url 'search:search' %}">
-                        <input id="q" name="q" type="text" placeholder="твой поиск">
-                    </form>
-                </li>
+{#                <li>#}
+{#                    <form method="get" action="{% url 'search:search' %}">#}
+{#                        <input id="q" name="q" type="text" placeholder="твой поиск">#}
+{#                    </form>#}
+{#                </li>#}
 {#            {% if not request.user.is_authenticated %}#}
 {#                <a href="{% url 'main:login' %}" class="btn btn-secondary">Войти</a>#}
 {#                {% else %}#}
@@ -127,6 +126,13 @@
                     <a href="{{ category.url }}" class="list-group-item">{{ category.name }}</a>
                 {% endfor %}
             </div>
+       {% block productfilter %}
+           {#      <form class="d-flex mt-3" action="{% url '' slug=category.slug %}" method="GET">#}
+      <form class="d-flex mt-3" action="{% url 'search:search' %}" method="GET">
+        <input class="form-control me-2" name="q" id="q" type="search" placeholder="Поиск товара" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Поиск</button>
+      </form>
+      {% endblock productfilter %}
         </div>
         <!-- /.col-lg-3 -->
 {% endblock %}

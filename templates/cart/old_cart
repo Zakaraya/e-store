@@ -1,0 +1,63 @@
+{#                <div class="cart-row" id="cart-row-1">#}
+{#                    <div style="flex: 2"></div>#}
+{#                    <div style="flex: 2"><strong>Покупки</strong></div>#}
+{#                    <div style="flex: 1"><strong>Цена</strong></div>#}
+{#                    <div style="flex: 1"><strong>Количество</strong></div>#}
+{#                    <div style="flex: 1"><strong>Стоимость</strong></div>#}
+{#                </div>#}
+{##}
+{#                {% for item in cart %}#}
+{#                    {% with product=item.product %}#}
+{#                        <div class="cart-row" id="cart-row-2">#}
+{##}
+{#                            <div style="flex: 2"><img src="{{ product.image.url }}" class="row-image"></div>#}
+{#                            <div style="flex: 2" id="title-item-cart">{{ product.title }}</div>#}
+{#                            <div style="flex: 1" id="price-one-item">{{ product.price }} руб.</div>#}
+                            {#                    Разобраться со стрелками!!#}
+{#                            <div style="flex: 1" id="counter-item-cart"><input type="number" class="form-control"#}
+{#                                                                               name="qty" style="width: 70px;" min="1"#}
+{#                                                                               value="{{ item.quantity }}">#}
+{##}
+{#                            </div>#}
+                            {#                    <div class="quantity">#}
+                            {#                        <p class="quantity">{{ item.quantity }}</p>#}
+                            {#                        <img data-product="{{ item.product.id }}" data-action="add" class="chg-quantity update-cart" src="{% static 'images/arrow-up.png' %}">#}
+                            {#                        <img data-product="{{ item.product.id }}" data-action="remove" class="chg-quantity update-cart" src="{% static 'images/arrow-down.png' %}">#}
+                            {#                    </div>#}
+{#                            <div style="flex: 1" id="total-price-cart">{{ item.total_price }} руб.#}
+{#                                <div>#}
+{#                                    <td><a href="{% url 'cart:cart_remove' product.id %}">Удалить</a></td>#}
+{#                                </div>#}
+{#                            </div>#}
+{##}
+{#                        </div>#}
+{#                    {% endwith %}#}
+{#                {% endfor %}#}
+{#                {% if cart.coupon %}#}
+{#                    <tr class="subtotal">#}
+{#                        <td>Subtotal</td>#}
+{#                        <td colspan="4"></td>#}
+{#                        <td class="num">${{ cart.get_total_price }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <td>#}
+{#                            "{{ cart.coupon.code }}" coupon#}
+{#                            ({{ cart.coupon.discount }}% off)#}
+{#                        </td>#}
+{#                        <td colspan="4"></td>#}
+{#                        <td class="num neg">#}
+{#                            - ${{ cart.get_discount|floatformat:"2" }}#}
+{#                        </td>#}
+{#                    </tr>#}
+{##}
+{#                {% endif %}#}
+{#                <form action="{% url "coupons:apply" %}" method="post">#}
+{#                    {{ coupon_apply_form }}#}
+{#                    <input type="submit" value="Применить" onclick="chpok('test')">#}
+{#                    {% csrf_token %}#}
+{#                    {% if cart.coupon == None %}#}
+{#                        <tr class="subtotal2">#}
+{#                            <p id="test">Неверный промокод</p>#}
+{#                        </tr>#}
+{#                    {% endif %}#}
+{#                </form>#}
