@@ -175,20 +175,20 @@ ELASTICSEARCH_DSL = {
 # Aws S3 Heroku settings
 AWS_QUERYSTRING_AUTH = False
 # AWS_S3_FILE_OVERWRITE = False
-# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-# AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
 # AWS_URL = os.environ.get('AWS_URL')
-AWS_ACCESS_KEY_ID = 'AKIATJYMU66BH6XJKO42'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'izugdidi-django-static'
+# AWS_ACCESS_KEY_ID = 'AKIATJYMU66BH6XJKO42'
+# AWS_SECRET_ACCESS_KEY = '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'
+# AWS_STORAGE_BUCKET_NAME = 'izugdidi-django-static'
 # AWS_URL = 'https://izugdidi-django-static.s3.eu-north-1.amazonaws.com/'
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 AWS_S3_REGION_NAME = 'eu-north-1'
 AWS_LOCATION = 'static'
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # AWS_MEDIA_URL = "{}/{}/".format(AWS_URL, AWS_STORAGE_BUCKET_NAME)
 
