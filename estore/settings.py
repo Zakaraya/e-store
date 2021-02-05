@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from urllib.parse import urlparse
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -149,7 +151,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Email settings
 # EMAIL_HOST = 'localhost'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.mail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_PORT = '1025'
 EMAIL_PORT = 587
@@ -178,21 +180,28 @@ AWS_QUERYSTRING_AUTH = False
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
-# AWS_URL = os.environ.get('AWS_URL')
-# AWS_ACCESS_KEY_ID = 'AKIATJYMU66BH6XJKO42'
-# AWS_SECRET_ACCESS_KEY = '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'
-# AWS_STORAGE_BUCKET_NAME = 'izugdidi-django-static'
 # AWS_URL = 'https://izugdidi-django-static.s3.eu-north-1.amazonaws.com/'
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 AWS_S3_REGION_NAME = 'eu-north-1'
 AWS_LOCATION = 'static'
-
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # AWS_MEDIA_URL = "{}/{}/".format(AWS_URL, AWS_STORAGE_BUCKET_NAME)
-
 # MEDIA_URL = AWS_MEDIA_URL
+
+
+#  Bonsai Elasticsearch
+ES_URL = urlparse(os.environ.get('BONSAI_URL') or 'http://127.0.0.1:9200/')
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': ES_URL.scheme + '://' + ES_URL.hostname + ':443',
+        'INDEX_NAME': 'haystack',
+    },
+}
+
+if ES_URL.username:
+    HAYSTACK_CONNECTIONS['default']['KWARGS'] = {"http_auth": ES_URL.username + ':' + ES_URL.password}
 
 import dj_database_url
 
