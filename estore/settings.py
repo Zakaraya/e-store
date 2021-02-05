@@ -188,7 +188,7 @@ AWS_DEFAULT_ACL = None
 AWS_S3_REGION_NAME = 'eu-north-1'
 AWS_LOCATION = 'static'
 
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # AWS_MEDIA_URL = "{}/{}/".format(AWS_URL, AWS_STORAGE_BUCKET_NAME)
 
