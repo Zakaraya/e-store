@@ -9,17 +9,19 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-{#    <title>Shop Homepage - Start Bootstrap Template</title>#}
+    {#    <title>Shop Homepage - Start Bootstrap Template</title>#}
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/nouislider.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <!-- Bootstrap core CSS -->
-{#    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"#}
-{#          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">#}
+    {#    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"#}
+    {#          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">#}
 
     <!-- Custom styles for this template -->
-{#    <link href="css/shop-homepage.css" rel="stylesheet">#}
+    {#    <link href="css/shop-homepage.css" rel="stylesheet">#}
+
 
 </head>
 
@@ -30,24 +32,12 @@
     }
 </style>
 <body>
-{#<div class="cart">#}
-{#    {% with total_items=cart|length %}#}
-{#        {% if cart|length > 0 %}#}
-{#            Your cart:#}
-{#            <a href="{% url "cart:cart_detail" %}">#}
-{#                {{ total_items }} item{{ total_items|pluralize }},#}
-{#                ${{ cart.get_total_price }}#}
-{#            </a>#}
-{#        {% else %}#}
-{#            Your cart is empty.#}
-{#        {% endif %}#}
-{#    {% endwith %}#}
-{#</div>#}
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
         <a class="navbar-brand" href="{% url 'main:base' %}">მთავარი</a>
-        <div class="mobile-cart"><a class="navbar-brand" href="{% url 'cart:cart_detail' %}"><i class="bi bi-cart"></i><span class="mobile-badge-danger">{{ cart|length }}</span></a></div>
+        <div class="mobile-cart"><a class="navbar-brand" href="{% url 'cart:cart_detail' %}"><i
+                class="bi bi-cart"></i><span class="mobile-badge-danger">{{ cart|length }}</span></a></div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -58,57 +48,43 @@
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link text-light dropdown-toggle" id="navbarDropdownMenuLink" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            კატეგორიები
+                        კატეგორიები
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         {% for category in categories %}
-                        <a href="{{ category.url }}" class="dropdown-item">{{ category.name }}</a>
+                            <a href="{{ category.url }}" class="dropdown-item">{{ category.name }}</a>
                         {% endfor %}
                     </div>
                 </li>
                 <li>
-                <a class="nav-link text-link" href="{% url 'main:contact' %}">ჩვენ შესახებ</a>
+                    <a class="nav-link text-link" href="{% url 'main:contact' %}">ჩვენ შესახებ</a>
                 </li>
-            {% if not request.user.is_authenticated %}
-                <li>
-                <a class="nav-link text-link" href="{% url 'main:login' %}">ავტორიზაცია</a>
-                </li>
-                <li>
-                <a class="nav-link text-link" href="{% url 'main:registration' %}">რეგისტრაცია</a>
-                </li>
+                {% if not request.user.is_authenticated %}
+                    <li>
+                        <a class="nav-link text-link" href="{% url 'main:login' %}">ავტორიზაცია</a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-link" href="{% url 'main:registration' %}">რეგისტრაცია</a>
+                    </li>
                 {% else %}
-                  <li>
-                <a class="nav-link text-link" href="{% url 'main:profile' %}"> პროფილი</a>
-                </li>
-                  <li>
-                <a class="nav-link text-link" href="{% url 'main:logout' %}">გასვლა</a>
-                </li>
-{#                <ul class="navbar-nav ml-auto">#}
-{#                <a href="{% url 'main:logout' %}" class="btn btn-warning">Выйти</a>#}
-{#                <a href="{% url 'main:profile' %}" class="btn btn-warning">ТЕСТ</a>#}
-{#                <li class="nav-item active">#}
-{#            </ul>#}
-            {% endif %}
+                    <li>
+                        <a class="nav-link text-link" href="{% url 'main:profile' %}"> პროფილი</a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-link" href="{% url 'main:logout' %}">გასვლა</a>
+                    </li>
+
+                {% endif %}
 
             </ul>
 
             <ul class="navbar-nav ml-auto">
-{#                <li>#}
-{#                    <form method="get" action="{% url 'search:search' %}">#}
-{#                        <input id="q" name="q" type="text" placeholder="твой поиск">#}
-{#                    </form>#}
-{#                </li>#}
-{#            {% if not request.user.is_authenticated %}#}
-{#                <a href="{% url 'main:login' %}" class="btn btn-secondary">Войти</a>#}
-{#                {% else %}#}
-{#                <a href="{% url 'main:profile' %}" class="btn btn-secondary">Аккаунт</a>#}
-{#                <a href="{% url 'main:logout' %}" class="btn btn-secondary">Выйти</a>#}
-{#            {% endif %}#}
                 <li class="nav-item active">
                 <li class="nav-item" id="counter">    {% with total_items=cart|length %}
                     {#            <a class="nav-link" href="{%  url 'cart' %}">Корзина <span class="badge badge-pill badge-danger">{{ cart.products.count }}</span> </a>#}
                     <a class="nav-link" href="{% url 'cart:cart_detail' %}">კალათა <span
-                            class="badge badge-pill badge-danger">{{ total_items }}</span> ${{ cart.get_total_price_after_discount|floatformat:"2" }}
+                            class="badge badge-pill badge-danger">{{ total_items }}</span>
+                        ${{ cart.get_total_price_after_discount|floatformat:"2" }}
                     </a>
                     </li>{% endwith %}
             </ul>
@@ -116,97 +92,158 @@
     </div>
 </nav>
 {% block row %}
-<!-- Page Content -->
-<div class="container">
+    <!-- Page Content -->
+    <div class="container">
     <div class="row">
-        <div class="col-lg-3">
-            <h1 class="my-4">iZugdidi</h1>
-            <div class="list-group">
-                {% for category in categories %}
-                    <a href="{{ category.url }}" class="list-group-item">{{ category.name }}</a>
-                {% endfor %}
-            </div>
-       {% block productfilter %}
-           {#      <form class="d-flex mt-3" action="{% url '' slug=category.slug %}" method="GET">#}
-      <form class="d-flex mt-3" action="{% url 'search:search' %}" method="GET">
-        <input class="form-control me-2" name="q" id="q" type="search" placeholder="Поиск товара" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Поиск</button>
-      </form>
-      {% endblock productfilter %}
+    <div class="col-lg-3">
+        <h1 class="my-4">iZugdidi</h1>
+        <div class="list-group">
+            {% for category in categories %}
+                <a href="{{ category.url }}" class="list-group-item">{{ category.name }}</a>
+            {% endfor %}
         </div>
-        <!-- /.col-lg-3 -->
-{% endblock %}
-{#        <div class="col-lg-9">#}
-            {% block content %}
-                 <div class="col-lg-9">
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>{{ message }}</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-                <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item active">
-                            <img class="d-block img-fluid" src="{% static 'images/banners/11.png' %}" alt="First slide">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
-                        </div>
-                    </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
 
-                <div class="row">
-                    {% for product in products %}
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card h-100">
-                                <a href="{{ product.get_absolute_url }}"><img class="card-img-top"
-                                                                              src="{{ product.image.url }}" alt="" width="200" height="300" ></a>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
-                                    </h4>
-                                    <h5>{{ product.price }} ლარი</h5>
-                                    <p class="card-text"> განვადება  3 - 48 თვე <br>65 ლარი /თვეში </p>
-                                </div>
-                                <div class="card-footer">
-                                    {#                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>#}
-                                    {#                  <a href="{% url 'add_to_cart' ct_model=product.get_model_name slug=product.slug %}"><button data-model={{ product.get_model_name }} data-product={{ product.id }} data-action="add" class="btn btn-danger update-cart">Добавить в корзину</button></a>#}
+{#        {% block productfilter %}#}
+{#            <form class="d-flex mt-3" action="{% url 'search:search' %}" method="GET">#}
+{#                <input class="form-control me-2" name="q" id="q" type="search" placeholder="Поиск товара"#}
+{#                       aria-label="Search">#}
+{#                <button class="btn btn-outline-success" type="submit">Поиск</button>#}
+{#            </form>#}
+{#            <div class="list-group list-group-flush">#}
+{#                Diagonal#}
+                {#                {% for diagonal in products %}#}
+{#                {% for diagonal in test %}#}
+{#                    <li class="list-group-item">#}
+{#                        <input class="filter-checkbox" type="checkbox" data-filter="test-filter"#}
+{#                               value="{{ diagonal__id }}"> {{ diagonal }}#}
+{#                    </li>#}
+{#                {% endfor %}#}
+{#            </div>#}
+{#        {% endblock productfilter %}#}
 
-                                   <button  data-id="{{ product.id }}" data-model="{{ product.slug }}" data-action="add" class="btn btn-danger update-cart2" id="update2"> კალათაში </button>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
+    {% block productfilter %}
 
-                <!-- /.row -->
-            {% endblock content %}
+            <form method="get" action="{% url 'main:searcher' %}">
+{#        {{ filter.form.as_p }}#}
+        <br>
+        <input class="form-control me-2" name="title__icontains" id="id_title__icontains" type="text"
+               placeholder="Поиск товара"
+               aria-label="Search">
+
+        <div class="filters-price__slider" id="range-slider"></div>
+        <div class="filters-price__inputs">
+        <label class="filters-price__label">
+            <span class="filters-price__text">от</span>
+            <input type="number" min="0" max="299999" name="price_min" id="id_price_0" class="filters-price__input">
+            <span class="filters-price__text">₽</span>
+        </label>
+
+        <label class="filters-price__label">
+            <span class="filters-price__text">до</span>
+            <input type="number" min="500" max="300000" name="price_max" id="id_price_1" class="filters-price__input">
+            <span class="filters-price__text">₽</span>
+        </label>
         </div>
-        <!-- /.col-lg-9 -->
+        <input type="submit"/>
+    </form>
+
+    {% endblock productfilter %}
+
+
+
 
     </div>
+    <!-- /.col-lg-3 -->
+{% endblock %}
+{#        <div class="col-lg-9">#}
+{% block content %}
+    <div class="col-lg-9">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <img class="d-block img-fluid" src="{% static 'images/banners/11.png' %}" alt="First slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <div class="dropdown pull-right">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+            Сортировка
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <a href="{% url 'main:product_list' pk=1 %}">
+                <button class="dropdown-item" type="button">По умолчанию</button>
+            </a>
+            <a href="{% url 'main:product_list' pk=2 %}">
+                <button class="dropdown-item" type="button">От меньшего к большему</button>
+            </a>
+            <a href="{% url 'main:product_list' pk=3 %}">
+                <button class="dropdown-item" type="button">От большего к меньшему</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for product in products %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100" id="test">
+                    <a href="{{ product.get_absolute_url }}"><img class="card-img-top"
+                                                                  src="{{ product.image.url }}" alt="" width="200"
+                                                                  height="300"></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+                        </h4>
+                        <h5>{{ product.price }} ლარი</h5>
+                        <p class="card-text"> განვადება 3 - 48 თვე <br>65 ლარი /თვეში </p>
+                    </div>
+                    <div class="card-footer">
+
+                        <button data-id="{{ product.id }}" data-model="{{ product.slug }}" data-action="add"
+                                class="btn btn-danger update-cart2" id="update2"> კალათაში
+                        </button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
     <!-- /.row -->
+{% endblock content %}
+</div>
+<!-- /.col-lg-9 -->
+
+</div>
+<!-- /.row -->
 
 </div>
 <!-- /.container -->
@@ -225,12 +262,11 @@
   height: 60px;
   background-color: #f5f5f5;">
     <div class="navbar-fixed-bottom row-fluid">
-  <div class="container">
-    <p class="m-0 text-center text-white">Copyright &copy; iZugdidi 2021</p>
-  </div>
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; iZugdidi 2021</p>
+        </div>
     </div>
 </footer>
-
 
 
 <!-- Bootstrap core JavaScript -->
@@ -242,6 +278,10 @@
         crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script type="text/javascript" src="{% static 'js/add_to_cart.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/nouislider.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/range_slider.js' %}"></script>
+
+
 <script type="text/javascript">
     var user = '{{ request.user }}'
 

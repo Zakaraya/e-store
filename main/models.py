@@ -15,24 +15,25 @@ User = get_user_model()
 def get_product_url(obj, view_name):
     """Функция для получения необходимого view_name для отображения нужного товара obj"""
     ct_model = obj.__class__._meta.model_name
-    return reverse(view_name, kwargs={'ct_model': ct_model, 'slug': obj.slug})
+    # return reverse(view_name, kwargs={'ct_model': ct_model, 'slug': obj.slug})
+    return reverse(view_name, kwargs={'slug': obj.slug})
 
 
-class LatestProductManager:
-    @staticmethod
-    def get_products_for_main_page(*args):
-        """Функция для вывода всех товаров в обратном порядке на главную страницу"""
-        products = []
-        ct_models = ContentType.objects.filter(model__in=args)
-        for ct_model in ct_models:
-            model_products = ct_model.model_class()._base_manager.filter(available=True).order_by('-id')
-            # model_products = ct_model.model_class()._base_manager.filter(available=True)
-            products.extend(model_products)
-        return products
-
-
-class LatestProducts:
-    objects = LatestProductManager()
+# class LatestProductManager:
+#     @staticmethod
+#     def get_products_for_main_page(*args):
+#         """Функция для вывода всех товаров в обратном порядке на главную страницу"""
+#         products = []
+#         ct_models = ContentType.objects.filter(model__in=args)
+#         for ct_model in ct_models:
+#             model_products = ct_model.model_class()._base_manager.filter(available=True).order_by('-id')
+#             # model_products = ct_model.model_class()._base_manager.filter(available=True)
+#             products.extend(model_products)
+#         return products
+#
+#
+# class LatestProducts:
+#     objects = LatestProductManager()
 
 
 # class CategoryManager(models.Manager):
@@ -106,10 +107,12 @@ class Product(models.Model):
     def __str__(self):
         return self.title
 
+    # def get_absolute_url(self):
+    #     """Функция получения названия view, которая передается в get_product_url для отображения необходимого товара"""
+    #     # return get_product_url(self, 'search:search')
+    #     return get_product_url(self, 'main:product_detail')
     def get_absolute_url(self):
-        """Функция получения названия view, которая передается в get_product_url для отображения необходимого товара"""
-        # return get_product_url(self, 'search:search')
-        return get_product_url(self, 'main:product_detail')
+        return reverse('main:product_detail', kwargs={'slug': self.slug})
 
 
 class Iphone(Product):
@@ -128,8 +131,14 @@ class Iphone(Product):
         return '{} : {}'.format(self.category.category_name, self.title)
 
     def get_absolute_url(self):
-        """Функция получения названия view, которая передается в get_product_url для отображения необходимого товара"""
-        return get_product_url(self, 'main:product_detail')
+        return reverse('main:product_detail', kwargs={'slug': self.slug})
+
+    def get_diagonal(self):
+        return self.diagonal
+
+    # def get_absolute_url(self):
+    #     """Функция получения названия view, которая передается в get_product_url для отображения необходимого товара"""
+    #     return get_product_url(self, 'main:product_detail')
     #
     # class Meta:
     #     ordering = ('title',)
@@ -149,9 +158,11 @@ class Ipad(Product):
     def __str__(self):
         return '{} : {}'.format(self.category.category_name, self.title)
 
+    # def get_absolute_url(self):
+    #     """Функция получения названия view, которая передается в get_product_url для отображения необходимого товара"""
+    #     return get_product_url(self, 'main:product_detail')  # product_detail берется из urls.py
     def get_absolute_url(self):
-        """Функция получения названия view, которая передается в get_product_url для отображения необходимого товара"""
-        return get_product_url(self, 'main:product_detail')  # product_detail берется из urls.py
+        return reverse('main:product_detail', kwargs={'slug': self.slug})
 
 
 class Customer(models.Model):

@@ -1,5 +1,5 @@
 {% extends 'main/base.html' %}
-{% load specifications %}
+{#{% load specifications %}#}
 {% load crispy_forms_tags %}
 {% block productfilter %}
 {% endblock productfilter %}
@@ -31,14 +31,9 @@
 
     </div>
      <p class="mt-4">Характеристики: </p>
+{##}
+{#        {{ product|product_specifications }}#}
 
-        {{ product|product_specifications }}
-
-{#        {% if product.category.slug == 'ipads' %}#}
-{#            {% include 'main/ipad_specification.html' %}#}
-{#        {% elif product.category.slug == 'iphones' %}#}
-{#            {% include 'main/iphone_specification.html' %}#}
-{#        {% endif %}#}
     </div>
 
 {% endblock content %}

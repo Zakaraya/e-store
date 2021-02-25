@@ -48,8 +48,10 @@ INSTALLED_APPS = [
     'search',
     'crispy_forms',
 
-    # 'haystack'
     'django_elasticsearch_dsl',
+    'django_filters'
+    
+    
 ]
 
 MIDDLEWARE = [
@@ -185,24 +187,26 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 AWS_S3_REGION_NAME = 'eu-north-1'
 AWS_LOCATION = 'static'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'       ---------- не забыть раскомментировать
 # AWS_MEDIA_URL = "{}/{}/".format(AWS_URL, AWS_STORAGE_BUCKET_NAME)
 # MEDIA_URL = AWS_MEDIA_URL
 
 
 #  Bonsai Elasticsearch
-ES_URL = urlparse(os.environ.get('BONSAI_URL') or 'http://127.0.0.1:9200/')
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-        'URL': ES_URL.scheme + '://' + ES_URL.hostname + ':443',
-        'INDEX_NAME': 'haystack',
-    },
-}
+# ES_URL = urlparse(os.environ.get('BONSAI_URL') or 'http://127.0.0.1:9200/')
+# HAYSTACK_CONNECTIONS = {
+#     'default': {
+#         'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+#         # 'URL': ES_URL.scheme + '://' + ES_URL.hostname + ':443',
+#         'URL': 'http://127.0.0.1:9200/',
+#         'INDEX_NAME': 'haystack',
+#     },
+# }
+#
+# if ES_URL.username:
+#     HAYSTACK_CONNECTIONS['default']['KWARGS'] = {"http_auth": ES_URL.username + ':' + ES_URL.password}
 
-if ES_URL.username:
-    HAYSTACK_CONNECTIONS['default']['KWARGS'] = {"http_auth": ES_URL.username + ':' + ES_URL.password}
-
+#
 import dj_database_url
 
 prod_db = dj_database_url.config(conn_max_age=500)

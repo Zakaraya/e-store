@@ -11,6 +11,10 @@ from orders.models import Order, OrderItem
 from django.views import View
 from django.core.mail import send_mail
 
+from main.filters import ProductFilter
+import django_filters
+import re
+
 
 class BaseView(View):
     """Базовое представление"""
@@ -20,31 +24,43 @@ class BaseView(View):
         # ИСПРАВИТЬ!!!!!!!!!!!!!
         categories = [{'name': 'iPhone', 'url': '/category/iphones/', 'count': 2},
                       {'name': 'iPad', 'url': '/category/ipads/', 'count': 2}]
-        products = LatestProducts.objects.get_products_for_main_page('iphone', 'ipad')
-        # products = Product.objects.all()
+        # products = LatestProducts.objects.get_products_for_main_page('iphone', 'ipad')
+        products = Product.objects.all()
+        search_iphone_diagonal = re.findall("'(.+?)'", str(set(Iphone.objects.values_list('diagonal'))))
+        search_ipad_diagonal = re.findall("'(.+?)'", str(set(Ipad.objects.values_list('diagonal'))))
+        filter_result_diagonal = search_iphone_diagonal + search_ipad_diagonal
+
+        filter = ProductFilter(request.GET, queryset=products)
+
         context = {
             'categories': categories,
             'products': products,
+            'test': filter_result_diagonal,
+            'filter': filter,
         }
         return render(request, 'main/base.html', context)
 
 
 class ProductDetailView(CategoryDetailMixin, DetailView):
     """Класс для отобраения порбродной информации для выбранного товара"""
-    CT_MODEL_CLASS = {
-        'iphone': Iphone,
-        'ipad': Ipad
-    }
-
-    def dispatch(self, request, *args, **kwargs):
-        """ Возвращаем выбранную пользователем модель товара """
-        self.model = self.CT_MODEL_CLASS[kwargs['ct_model']]
-        self.queryset = self.model._base_manager.all()
-        return super(ProductDetailView, self).dispatch(request, *args, **kwargs)
-
+    # CT_MODEL_CLASS = {
+    #     'iphone': Iphone,
+    #     'ipad': Ipad
+    # }
+    #
+    # def dispatch(self, request, *args, **kwargs):
+    #     """ Возвращаем выбранную пользователем модель товара """
+    #     self.model = self.CT_MODEL_CLASS[kwargs['ct_model']]
+    #     self.queryset = self.model._base_manager.all()
+    #     return super(ProductDetailView, self).dispatch(request, *args, **kwargs)
+    model = Product
     context_object_name = 'product'
     template_name = 'main/product_detail.html'
     slug_url_kwarg = 'slug'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
 
 
 class CategoryDetailView(CategoryDetailMixin, DetailView):
@@ -120,7 +136,9 @@ class ProfileView(View):
         products = Product.objects.all()
         test = OrderItem.objects.all()
         orders = Order.objects.filter(email=customer.email).order_by('-created')
-        return render(request, 'main/profile.html', {'orders': orders, 'products': products, 'quantity': test, 'categories': categories})
+        return render(request, 'main/profile.html',
+                      {'orders': orders, 'products': products, 'quantity': test, 'categories': categories})
+
 
 # class EContactsView(View):
 #     # template_name = 'main/contacts_info.html'
@@ -149,3 +167,19 @@ def contact(request):
         return render(request, 'main/contacts_info.html', {'message_name': message_name, 'categories': categories})
     else:
         return render(request, 'main/contacts_info.html', {'categories': categories})
+
+
+def product_list(request, pk):
+    if pk == 1:
+        filter = Product.objects.all()
+    elif pk == 2:
+        filter = Product.objects.filter(available=True).order_by('price')
+    else:
+        filter = Product.objects.filter(available=True).order_by('-price')
+    return render(request, 'main/sorting.html', {'products': filter})
+
+
+def film_list(request):
+    films = Product.objects.all()
+    filter = ProductFilter(request.GET, queryset=films)
+    return render(request, 'main/filters.html', {'filter': filter})

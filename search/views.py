@@ -4,7 +4,7 @@ from django.views.generic import DetailView
 
 from main.mixins import CategoryDetailMixin
 from .documents import ProductDocument
-from main.models import Product, Iphone, Ipad, CategoryProduct, LatestProducts
+from main.models import Product, Iphone, Ipad, CategoryProduct
 
 
 class SearchView(CategoryDetailMixin, DetailView):
