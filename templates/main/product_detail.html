@@ -1,44 +1,51 @@
 {% extends 'main/base.html' %}
-{% load specifications %}
+{#{% load crispy_forms_filters %}#}
+{#{% load specifications %}#}
 {% load crispy_forms_tags %}
 {% block productfilter %}
 {% endblock productfilter %}
 {% block content %}
 
-<nav aria-label="breadcrumb" class="mt-3">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="{% url 'main:base' %}">მთავარი</a></li>
-    <li class="breadcrumb-item"><a href="{{ product.category.get_absolute_url }}">{{ product.category.category_name }}</a></li>
-    <li class="breadcrumb-item active" aria-current="page">{{ product.title }}</li>
-  </ol>
-</nav>
+    <nav aria-label="breadcrumb" class="mt-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'main:base' %}">მთავარი</a></li>
+            <li class="breadcrumb-item"><a
+                    href="{{ product.category.get_absolute_url }}">{{ product.category.category_name }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ product.title }}</li>
+        </ol>
+    </nav>
     <div class="row">
 
-    <div class="col-md-4">
-        <img src="{{ product.image.url }}" class="img-fluid">
-    </div>
+        <div class="col-md-4">
+            <img src="{{ product.image.url }}" class="img-fluid">
+        </div>
 
         <div class="col-md-8">
-        <h3>{{ product.title }}</h3>
+            <h3>{{ product.title }}</h3>
             <p style="font-size: 1.5rem;">ფასი: {{ product.price }} ლარი</p>
             <hr>
-    {{ cart_product_form.quantity|as_crispy_field }}
-    {% csrf_token %}
-<button  data-id="{{ product.id }}" data-model="{{ product.slug }}" data-action="add" class="btn btn-danger update-cart2" id="update2"> კალათაში </button>
+            {{ cart_product_form.quantity|as_crispy_field }}
+            {% csrf_token %}
+            <button data-id="{{ product.id }}" data-model="{{ product.slug }}" data-action="add"
+                    class="btn btn-danger update-cart2" id="update2"> კალათაში
+            </button>
             <hr>
             <p>აღწერა: {{ product.description }}</p>
-{#</form>#}
+            {#</form>#}
 
-    </div>
-     <p class="mt-4">Характеристики: </p>
+        </div>
+        <p class="mt-4">სპეციფიკაციები </p>
+        <table class="table">
+            <tbody>
 
-        {{ product|product_specifications }}
-
-{#        {% if product.category.slug == 'ipads' %}#}
-{#            {% include 'main/ipad_specification.html' %}#}
-{#        {% elif product.category.slug == 'iphones' %}#}
-{#            {% include 'main/iphone_specification.html' %}#}
-{#        {% endif %}#}
+            {% for f_name, f_value in product.get_features.items %}
+                <tr>
+                    <th scope="row">{{ f_name }}</th>
+                    <td>{{ f_value }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 
 {% endblock content %}

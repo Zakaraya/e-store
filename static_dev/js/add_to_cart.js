@@ -5,10 +5,6 @@ for (var i = 0; i < updateBtns.length; i++){
          var action = this.dataset.action
          let model = this.dataset.model
          var id_quantity = 1
-
-        // var test = document.getElementById("count-product").value;
-        //  alert(test);
-
         if (document.getElementById("id_quantity")) {
             id_quantity = document.getElementById("id_quantity").options.selectedIndex + 1;
         }
@@ -21,7 +17,7 @@ for (var i = 0; i < updateBtns.length; i++){
  }
 
  function updateUserOrder(productId, action, quantity){
-    console.log('User is logged in')
+    // console.log('User is logged in')
 
      var url = '/cart/update_item/'
 
@@ -48,5 +44,3 @@ for (var i = 0; i < updateBtns.length; i++){
     if (state =='') elem.style.display='none'; //если включен, то выключаем
     else elem.style.display=''; //иначе - включаем
 }
-
-

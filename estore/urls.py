@@ -4,16 +4,15 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from main import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('cart/', include('cart.urls', namespace='cart')),
     path('orders/', include('orders.urls', namespace='orders')),
     path('coupons/', include('coupons.urls', namespace='coupons')),
-    # path('search/', search_views.search, name='search'),
     path('search/', include('search.urls', namespace='search')),
-
-    # path('paypal/', include('paypal.standard.ipn.urls')),
-
+    path('product-specs/', include('specification.urls')),
     path('', include('main.urls')),
 
 ]
