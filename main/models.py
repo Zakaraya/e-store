@@ -80,6 +80,9 @@ class CategoryProduct(models.Model):
     def get_absolute_url(self):
         return reverse('main:category_detail', kwargs={'slug': self.slug})
 
+    # def get_products(self):
+    #     Product.objects.filter(category=self)
+
     class Meta:
         ordering = ('category_name',)
         verbose_name = 'Категория'
@@ -103,6 +106,7 @@ class Product(models.Model):
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    features = models.ManyToManyField("specification.ProductFeatures", blank=True, related_name='features_for_product')
 
     def __str__(self):
         return self.title
@@ -114,27 +118,30 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('main:product_detail', kwargs={'slug': self.slug})
 
+    def get_features(self):
+        return {f.feature.feature_name: ' '.join([f.value, f.feature.unit or ""]) for f in self.features.all()}
 
-class Iphone(Product):
-    """Таблица с Iphones"""
-    diagonal = models.CharField(max_length=255, verbose_name='Диагональ')
-    display_type = models.CharField(max_length=255, verbose_name='Тип дисплея')
-    memory = models.CharField(max_length=255, verbose_name='Память')
-    resolution = models.CharField(max_length=255, verbose_name='Разрешение экрана')
-    accum_volume = models.CharField(max_length=255, verbose_name='Объем батареи')
-    main_cam_mp = models.CharField(max_length=255, verbose_name='Основная камера')
-    frontal_cam_mp = models.CharField(max_length=255, verbose_name='Фронтальная камера')
-    face_id = models.BooleanField(default=True, verbose_name='Наличие FaceID')
-    face_id_technology = models.CharField(max_length=255, null=True, blank=True, verbose_name='Технология FaceID')
 
-    def __str__(self):
-        return '{} : {}'.format(self.category.category_name, self.title)
-
-    def get_absolute_url(self):
-        return reverse('main:product_detail', kwargs={'slug': self.slug})
-
-    def get_diagonal(self):
-        return self.diagonal
+# class Iphone(Product):
+#     """Таблица с Iphones"""
+#     diagonal = models.CharField(max_length=255, verbose_name='Диагональ')
+#     display_type = models.CharField(max_length=255, verbose_name='Тип дисплея')
+#     memory = models.CharField(max_length=255, verbose_name='Память')
+#     resolution = models.CharField(max_length=255, verbose_name='Разрешение экрана')
+#     accum_volume = models.CharField(max_length=255, verbose_name='Объем батареи')
+#     main_cam_mp = models.CharField(max_length=255, verbose_name='Основная камера')
+#     frontal_cam_mp = models.CharField(max_length=255, verbose_name='Фронтальная камера')
+#     face_id = models.BooleanField(default=True, verbose_name='Наличие FaceID')
+#     face_id_technology = models.CharField(max_length=255, null=True, blank=True, verbose_name='Технология FaceID')
+#
+#     def __str__(self):
+#         return '{} : {}'.format(self.category.category_name, self.title)
+#
+#     def get_absolute_url(self):
+#         return reverse('main:product_detail', kwargs={'slug': self.slug})
+#
+#     def get_diagonal(self):
+#         return self.diagonal
 
     # def get_absolute_url(self):
     #     """Функция получения названия view, которая передается в get_product_url для отображения необходимого товара"""
@@ -143,26 +150,26 @@ class Iphone(Product):
     # class Meta:
     #     ordering = ('title',)
     #     index_together = (('id', 'slug'),)
-
-
-class Ipad(Product):
-    """Таблица с Ipads"""
-    diagonal = models.CharField(max_length=255, verbose_name='Диагональ')
-    display_type = models.CharField(max_length=255, verbose_name='Тип дисплея')
-    memory = models.CharField(max_length=255, verbose_name='Память')
-    resolution = models.CharField(max_length=255, verbose_name='Разрешение экрана')
-    accum_volume = models.CharField(max_length=255, verbose_name='Объем батареи')
-    main_cam_mp = models.CharField(max_length=255, verbose_name='Основная камера')
-    frontal_cam_mp = models.CharField(max_length=255, verbose_name='Фронтальная камера')
-
-    def __str__(self):
-        return '{} : {}'.format(self.category.category_name, self.title)
-
-    # def get_absolute_url(self):
-    #     """Функция получения названия view, которая передается в get_product_url для отображения необходимого товара"""
-    #     return get_product_url(self, 'main:product_detail')  # product_detail берется из urls.py
-    def get_absolute_url(self):
-        return reverse('main:product_detail', kwargs={'slug': self.slug})
+#
+#
+# class Ipad(Product):
+#     """Таблица с Ipads"""
+#     diagonal = models.CharField(max_length=255, verbose_name='Диагональ')
+#     display_type = models.CharField(max_length=255, verbose_name='Тип дисплея')
+#     memory = models.CharField(max_length=255, verbose_name='Память')
+#     resolution = models.CharField(max_length=255, verbose_name='Разрешение экрана')
+#     accum_volume = models.CharField(max_length=255, verbose_name='Объем батареи')
+#     main_cam_mp = models.CharField(max_length=255, verbose_name='Основная камера')
+#     frontal_cam_mp = models.CharField(max_length=255, verbose_name='Фронтальная камера')
+#
+#     def __str__(self):
+#         return '{} : {}'.format(self.category.category_name, self.title)
+#
+#     # def get_absolute_url(self):
+#     #     """Функция получения названия view, которая передается в get_product_url для отображения необходимого товара"""
+#     #     return get_product_url(self, 'main:product_detail')  # product_detail берется из urls.py
+#     def get_absolute_url(self):
+#         return reverse('main:product_detail', kwargs={'slug': self.slug})
 
 
 class Customer(models.Model):
@@ -174,11 +181,4 @@ class Customer(models.Model):
     def __str__(self):
         return "Покупатель: {} {}".format(self.user.first_name, self.user.last_name)
 
-# class CartProduct(models.Model):
-#     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-#     object_id = models.PositiveIntegerField()
-#     content_object = GenericForeignKey('content_type', 'object_id')
-#
-#
-# class Cart(models.Model):
-#     products = models.ManyToManyField(CartProduct, blank=True, related_name='related_cart')
+

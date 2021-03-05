@@ -52,7 +52,8 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         {% for category in categories %}
-                            <a href="{{ category.url }}" class="dropdown-item">{{ category.name }}</a>
+                            <a href="{{ category.get_absolute_url }}"
+                               class="dropdown-item">{{ category.category_name }}</a>
                         {% endfor %}
                     </div>
                 </li>
@@ -97,59 +98,64 @@
     <div class="row">
     <div class="col-lg-3">
         <h1 class="my-4">iZugdidi</h1>
-        <div class="list-group">
-            {% for category in categories %}
-                <a href="{{ category.url }}" class="list-group-item">{{ category.name }}</a>
-            {% endfor %}
-        </div>
 
-{#        {% block productfilter %}#}
-{#            <form class="d-flex mt-3" action="{% url 'search:search' %}" method="GET">#}
-{#                <input class="form-control me-2" name="q" id="q" type="search" placeholder="Поиск товара"#}
-{#                       aria-label="Search">#}
-{#                <button class="btn btn-outline-success" type="submit">Поиск</button>#}
-{#            </form>#}
-{#            <div class="list-group list-group-flush">#}
-{#                Diagonal#}
-                {#                {% for diagonal in products %}#}
-{#                {% for diagonal in test %}#}
-{#                    <li class="list-group-item">#}
-{#                        <input class="filter-checkbox" type="checkbox" data-filter="test-filter"#}
-{#                               value="{{ diagonal__id }}"> {{ diagonal }}#}
-{#                    </li>#}
-{#                {% endfor %}#}
-{#            </div>#}
-{#        {% endblock productfilter %}#}
+        {% block productfilter %}
+            <div class="list-group">
+                {#            {% for category in categories %}#}
+                {#                <a href="{{ category.url }}" class="list-group-item">{{ category.name }}</a>#}
+                {% for category in categories %}
+                    <a href="{{ category.get_absolute_url }}" class="list-group-item">{{ category.category_name }}</a>
+                {% endfor %}
+            </div>
+            {#        {% block productfilter %}#}
+            {#            <form class="d-flex mt-3" action="{% url 'search:search' %}" method="GET">#}
+            {#                <input class="form-control me-2" name="q" id="q" type="search" placeholder="Поиск товара"#}
+            {#                       aria-label="Search">#}
+            {#                <button class="btn btn-outline-success" type="submit">Поиск</button>#}
+            {#            </form>#}
+            {#            <div class="list-group list-group-flush">#}
+            {#                Diagonal#}
+            {#                {% for diagonal in products %}#}
+            {#                {% for diagonal in test %}#}
+            {#                    <li class="list-group-item">#}
+            {#                        <input class="filter-checkbox" type="checkbox" data-filter="test-filter"#}
+            {#                               value="{{ diagonal__id }}"> {{ diagonal }}#}
+            {#                    </li>#}
+            {#                {% endfor %}#}
+            {#            </div>#}
+            {#        {% endblock productfilter %}#}
 
-    {% block productfilter %}
+
 
             <form method="get" action="{% url 'main:searcher' %}">
-{#        {{ filter.form.as_p }}#}
-        <br>
-        <input class="form-control me-2" name="title__icontains" id="id_title__icontains" type="text"
-               placeholder="Поиск товара"
-               aria-label="Search">
+                {#        {{ filter.form.as_p }}#}
+                <br>
+                <input class="form-control me-2" name="title__icontains" id="id_title__icontains" type="text"
+                       placeholder="პროდუქტის ძებნა"
+                       aria-label="Search">
 
-        <div class="filters-price__slider" id="range-slider"></div>
-        <div class="filters-price__inputs">
-        <label class="filters-price__label">
-            <span class="filters-price__text">от</span>
-            <input type="number" min="0" max="299999" name="price_min" id="id_price_0" class="filters-price__input">
-            <span class="filters-price__text">₽</span>
-        </label>
+                <div class="filters-price__slider" id="range-slider"></div>
+                <div class="filters-price__inputs">
+                    <label class="filters-price__label">
+                        <span class="filters-price__text">от</span>
+                        <input type="number" min="0" max="299999" name="price_min" id="id_price_0"
+                               class="filters-price__input">
+                        <span class="filters-price__text">GEL</span>
+                    </label>
 
-        <label class="filters-price__label">
-            <span class="filters-price__text">до</span>
-            <input type="number" min="500" max="300000" name="price_max" id="id_price_1" class="filters-price__input">
-            <span class="filters-price__text">₽</span>
-        </label>
-        </div>
-        <input type="submit"/>
-    </form>
+                    <label class="filters-price__label">
+                        <span class="filters-price__text">до</span>
+                        <input type="number" min="500" max="300000" name="price_max" id="id_price_1"
+                               class="filters-price__input">
+                        <span class="filters-price__text">GEL</span>
+                    </label>
+                </div>
+                                <p class="text-center">
+                    <button class="btn btn-outline-success" type="submit">ძიება</button>
+                </p>
+            </form>
 
-    {% endblock productfilter %}
-
-
+        {% endblock productfilter %}
 
 
     </div>
@@ -197,7 +203,7 @@
     <div class="dropdown pull-right">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-            Сортировка
+            დახარისხება
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
             <a href="{% url 'main:product_list' pk=1 %}">

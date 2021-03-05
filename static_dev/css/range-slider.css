@@ -33,7 +33,7 @@
 }
 
 .filters-price__text:last-child {
-	margin-left: 10px;
+	margin-left: -5px;
 }
 
 .filters-price__input {

@@ -2,12 +2,6 @@
 {% load static %}
 {% block title %}Sorting{% endblock %}
 
-{% block productfilter %}
-    <form class="d-flex mt-3" action="{% url 'search:search' %}" method="GET">
-        <input class="form-control me-2" name="search" type="search" placeholder="Поиск товара" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Поиск</button>
-    </form>
-{% endblock productfilter %}
 
 {% block content %}
     <div class="col-lg-9">
@@ -50,7 +44,7 @@
         <div class="dropdown pull-right">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                Сортировка
+                დახარისხება
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <a href="{% url 'main:product_list' pk=1 %}">

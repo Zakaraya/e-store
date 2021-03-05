@@ -7,7 +7,7 @@ For more information on this file, see
 https://docs.djangoproject.com/en/3.1/topics/settings/
 
 For the full list of settings and their values, see
-https://docs.djangoproject.com/en/3.1/ref/settings/
+https://docs.djangoproject.com/en/3.1/ref/settings/z
 """
 import os
 from pathlib import Path
@@ -27,7 +27,7 @@ SECRET_KEY = 'ysv5aa*j@-f#o^_sqibxzxdl+6xhiss(9wg)s0np*=*c$d8cp*'
 # DEBUG = True
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -47,8 +47,9 @@ INSTALLED_APPS = [
     'coupons',
     'search',
     'crispy_forms',
+    'specification',
 
-    'django_elasticsearch_dsl',
+    # 'django_elasticsearch_dsl',
     'django_filters'
     
     
@@ -71,8 +72,7 @@ ROOT_URLCONF = 'estore.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -158,8 +158,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_PORT = '1025'
 EMAIL_PORT = 587
 # EMAIL_HOST_USER = ''
-EMAIL_HOST_USER = 'boriskazzz12@gmail.com'
-EMAIL_HOST_PASSWORD = 'Boris1214'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = True
 # EMAIL_USE_SSL = False
 #
@@ -170,11 +170,11 @@ EMAIL_USE_TLS = True
 #     },
 # }
 
-ELASTICSEARCH_DSL = {
-    'default': {
-        'hosts': 'localhost:9200'
-    },
-}
+# ELASTICSEARCH_DSL = {
+#     'default': {
+#         'hosts': 'localhost:9200'
+#     },
+# }
 
 # Aws S3 Heroku settings
 AWS_QUERYSTRING_AUTH = False
@@ -207,6 +207,9 @@ AWS_LOCATION = 'static'
 #     HAYSTACK_CONNECTIONS['default']['KWARGS'] = {"http_auth": ES_URL.username + ':' + ES_URL.password}
 
 #
+
+
+
 import dj_database_url
 
 prod_db = dj_database_url.config(conn_max_age=500)

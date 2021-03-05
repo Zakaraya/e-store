@@ -1,13 +1,7 @@
-from django.forms import forms
+
 
 from .models import Product
 import django_filters
-
-STATUS_CHOICES = (
-    (0, '10.2'),
-    (1, '10,5'),
-    (2, 'Admin'),
-)
 
 
 class ProductFilter(django_filters.FilterSet):
@@ -20,5 +14,5 @@ class ProductFilter(django_filters.FilterSet):
         fields = {
             'title': ['icontains'],
             # 'price': ['gt', 'lt'],
-            # 'diagonal': 'diagonal',
+            # 'diagonal': ['diagonal'],
         }
