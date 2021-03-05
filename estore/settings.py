@@ -170,12 +170,6 @@ EMAIL_USE_TLS = True
 #     },
 # }
 
-# ELASTICSEARCH_DSL = {
-#     'default': {
-#         'hosts': 'localhost:9200'
-#     },
-# }
-
 # Aws S3 Heroku settings
 AWS_QUERYSTRING_AUTH = False
 # AWS_S3_FILE_OVERWRITE = False
@@ -207,8 +201,6 @@ AWS_LOCATION = 'static'
 #     HAYSTACK_CONNECTIONS['default']['KWARGS'] = {"http_auth": ES_URL.username + ':' + ES_URL.password}
 
 #
-
-
 
 import dj_database_url
 
