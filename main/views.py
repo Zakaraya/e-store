@@ -132,9 +132,9 @@ class CategoryDetailView(DetailView):
 class LoginView(View):
     def get(self, request, *args, **kwargs):
         form = LoginForm(request.POST or None)
-        # categories = CategoryProduct.objects.all()
-        categories = [{'name': 'iPhone', 'url': '/category/iphones/', 'count': 2},
-                      {'name': 'iPad', 'url': '/category/ipads/', 'count': 2}]
+        categories = CategoryProduct.objects.all()
+        # categories = [{'name': 'iPhone', 'url': '/category/iphones/', 'count': 2},
+        #               {'name': 'iPad', 'url': '/category/ipads/', 'count': 2}]
         context = {'form': form, 'categories': categories}
         return render(request, 'main/login.html', context)
 
@@ -153,9 +153,9 @@ class LoginView(View):
 class RegistrationView(View):
     def get(self, request, *args, **kwargs):
         form = RegistrationForm(request.POST or None)
-        # categories = CategoryProduct.objects.all()
-        categories = [{'name': 'iPhone', 'url': '/category/iphones/', 'count': 2},
-                      {'name': 'iPad', 'url': '/category/ipads/', 'count': 2}]
+        categories = CategoryProduct.objects.all()
+        # categories = [{'name': 'iPhone', 'url': '/category/iphones/', 'count': 2},
+        #               {'name': 'iPad', 'url': '/category/ipads/', 'count': 2}]
         context = {'form': form, 'categories': categories}
         return render(request, 'main/registration.html', context)
 
@@ -204,13 +204,14 @@ class ProfileView(View):
 
 
 def contact(request):
-    categories = [{'name': 'iPhone', 'url': '/category/iphones/', 'count': 2},
-                  {'name': 'iPad', 'url': '/category/ipads/', 'count': 2}]
+    # categories = [{'name': 'iPhone', 'url': '/category/iphones/', 'count': 2},
+    #               {'name': 'iPad', 'url': '/category/ipads/', 'count': 2}]
+    categories = CategoryProduct.objects.all()
     if request.method == 'POST':
         message_name = request.POST['message-name']
         message_email = request.POST['message-email']
         message = request.POST['message']
-        # categories = CategoryProduct.objects.all()
+
 
         send_mail(
             message_name,

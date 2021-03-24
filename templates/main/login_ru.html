@@ -7,15 +7,12 @@
 
     <div class="row" style="margin-bottom: 500px; margin-top: 80px">
         <div class="col-md-6 offset-md-3">
-            <h3 class="text-center">ავტორიზაცია</h3>
+            <h3 class="text-center">Авторизация</h3>
             <hr>
             <form action="" method="POST">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <input type="submit" class="btn btn-success" value="შესასვლელი">
-                <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-facebook btn-user btn-block"><i
-                        class="fab fa-facebook-f fa-fw" style="display: none"></i> Login
-                    with Facebook</a>
+                <input type="submit" class="btn btn-success" value="Войти">
             </form>
         </div>
     </div>

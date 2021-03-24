@@ -371,6 +371,10 @@ input:focus {
         margin-top: 0;
         width: 100%
     }
+    #button-hide-category{
+        color: fuchsia;
+    }
+
 
 }
 @media (min-width: 996px) {

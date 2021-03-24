@@ -48,13 +48,13 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <a href="{% url 'main:product_list' pk=1 %}">
-                    <button class="dropdown-item" type="button">ნაგულისხმები</button>
+                    <button class="dropdown-item" type="button">По умолчанию</button>
                 </a>
                 <a href="{% url 'main:product_list' pk=2 %}">
-                    <button class="dropdown-item" type="button">ნაკლებად უფრო</button>
+                    <button class="dropdown-item" type="button">От меньшего к большему</button>
                 </a>
                 <a href="{% url 'main:product_list' pk=3 %}">
-                    <button class="dropdown-item" type="button">უფრო ნაკლები</button>
+                    <button class="dropdown-item" type="button">От большего к меньшему</button>
                 </a>
             </div>
         </div>
@@ -66,11 +66,12 @@
                                                                       alt="" width="200"
                                                                       height="300"></a>
                         <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
-                                </h4>
-                                <h5>{{ product.price }} ლარი</h5>
-                                <p class="card-text"> განვადება 3 - 48 თვე <br>65 ლარი /თვეში </p>
+                            <h4 class="card-title">
+                                <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+                            </h4>
+                            <h5>{{ product.price }} руб.</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam
+                                aspernatur!</p>
                         </div>
                         <div class="card-footer">
                             <button data-id="{{ product.id }}" data-model="{{ product.slug }}" data-action="add"

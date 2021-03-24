@@ -373,6 +373,13 @@ input:focus {
         margin-top: 0;
         width: 100%
     }
+    #category-nomobile{
+        display: none;
+    }
+    #filter_list{
+        display: none;
+    }
+
 
 }
 @media (min-width: 996px) {
@@ -386,6 +393,10 @@ input:focus {
     .profile-mobile-table{
         display: none;
     }
+    #button-hide-category{
+        display: none;
+    }
+
 }
 
 @media

@@ -10,7 +10,7 @@
 
 .filters-price__inputs {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 }
 
 .filters-price__label {

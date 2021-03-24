@@ -3,7 +3,7 @@
 {% endblock %}
 {% block content %}
 
-    <center><h3 class="mt-3 mb-3">Заказы пользователя: {{ request.user.username }}</h3></center>
+    <center><h3 class="mt-3 mb-3">ბრძანებები: {{ request.user.username }}</h3></center>
     {% if not orders.count %}
 
         <div class="col-md-12">
@@ -35,14 +35,14 @@
                             </ul>
                         </td>
                     <td id="profile-td">
-                        <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal-{{ order.id }}"> Дополнительно</button>
+                        <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal-{{ order.id }}">დეტალები</button>
 
                         <!-- Modal -->
                             <div class="modal fade" id="exampleModal-{{ order.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Детализация заказа</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">შეკვეთის დეტალები</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                       <span aria-hidden="true">&times;</span>
                                     </button>
@@ -79,7 +79,7 @@
  <td id="profile-td"><span>Оსაერთო თანხა: </span> {{ order.get_total_cost }}</td>
                                       </table>
                                     <hr>
-                                    <h4 class="text-center">Дополнительная информация</h4>
+                                    <h4 class="text-center">დამატებითი ინფორმაცია</h4>
                                   <p>სახელი: <strong>{{ order.first_name }}</strong></p>
                                   <p>გვარი: <strong>{{ order.last_name }}</strong></p>
                                   <p>Email: <strong>{{ order.email }}</strong></p>

@@ -107,25 +107,6 @@
                     <a href="{{ category.get_absolute_url }}" class="list-group-item">{{ category.category_name }}</a>
                 {% endfor %}
             </div>
-            {#        {% block productfilter %}#}
-            {#            <form class="d-flex mt-3" action="{% url 'search:search' %}" method="GET">#}
-            {#                <input class="form-control me-2" name="q" id="q" type="search" placeholder="Поиск товара"#}
-            {#                       aria-label="Search">#}
-            {#                <button class="btn btn-outline-success" type="submit">Поиск</button>#}
-            {#            </form>#}
-            {#            <div class="list-group list-group-flush">#}
-            {#                Diagonal#}
-            {#                {% for diagonal in products %}#}
-            {#                {% for diagonal in test %}#}
-            {#                    <li class="list-group-item">#}
-            {#                        <input class="filter-checkbox" type="checkbox" data-filter="test-filter"#}
-            {#                               value="{{ diagonal__id }}"> {{ diagonal }}#}
-            {#                    </li>#}
-            {#                {% endfor %}#}
-            {#            </div>#}
-            {#        {% endblock productfilter %}#}
-
-
 
             <form method="get" action="{% url 'main:searcher' %}">
                 {#        {{ filter.form.as_p }}#}
@@ -151,7 +132,7 @@
                     </label>
                 </div>
                                 <p class="text-center">
-                    <button class="btn btn-outline-success" type="submit">ძიება</button>
+                    <button class="btn btn-outline-success" type="submit" style="width: 100%;">ძიება</button>
                 </p>
             </form>
 
@@ -207,13 +188,13 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
             <a href="{% url 'main:product_list' pk=1 %}">
-                <button class="dropdown-item" type="button">По умолчанию</button>
+                <button class="dropdown-item" type="button">ნაგულისხმები</button>
             </a>
             <a href="{% url 'main:product_list' pk=2 %}">
-                <button class="dropdown-item" type="button">От меньшего к большему</button>
+                <button class="dropdown-item" type="button">ნაკლებად უფრო</button>
             </a>
             <a href="{% url 'main:product_list' pk=3 %}">
-                <button class="dropdown-item" type="button">От большего к меньшему</button>
+                <button class="dropdown-item" type="button">უფრო ნაკლები</button>
             </a>
         </div>
     </div>
@@ -235,7 +216,7 @@
                     <div class="card-footer">
 
                         <button data-id="{{ product.id }}" data-model="{{ product.slug }}" data-action="add"
-                                class="btn btn-danger update-cart2" id="update2"> კალათაში
+                                class="btn btn-danger update-cart2" id="update2" style="width: 100%;"> კალათაში
                         </button>
                     </div>
                 </div>

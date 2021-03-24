@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'specification',
 
     # 'django_elasticsearch_dsl',
-    'django_filters'
+    'django_filters',
+    'social_django'
 
 ]
 
@@ -64,6 +65,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'estore.urls'
@@ -80,10 +83,21 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'cart.context_processors.cart',
+
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.github.GithubOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 WSGI_APPLICATION = 'estore.wsgi.application'
 
@@ -179,25 +193,15 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 AWS_S3_REGION_NAME = 'eu-north-1'
 AWS_LOCATION = 'static'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'  # ---------- не забыть раскомментировать
-# AWS_MEDIA_URL = "{}/{}/".format(AWS_URL, AWS_STORAGE_BUCKET_NAME)
-# MEDIA_URL = AWS_MEDIA_URL
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'  # ---------- не забыть раскомментировать
 
-#  Bonsai Elasticsearch
-# ES_URL = urlparse(os.environ.get('BONSAI_URL') or 'http://127.0.0.1:9200/')
-# HAYSTACK_CONNECTIONS = {
-#     'default': {
-#         'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-#         # 'URL': ES_URL.scheme + '://' + ES_URL.hostname + ':443',
-#         'URL': 'http://127.0.0.1:9200/',
-#         'INDEX_NAME': 'haystack',
-#     },
-# }
-#
-# if ES_URL.username:
-#     HAYSTACK_CONNECTIONS['default']['KWARGS'] = {"http_auth": ES_URL.username + ':' + ES_URL.password}
 
-#
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'dashboard'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '260007205787586'  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '622c6340d776475be2a407c26c848a3e'  # App Secret
 
 import dj_database_url
 

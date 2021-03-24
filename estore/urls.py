@@ -13,6 +13,9 @@ urlpatterns = [
     path('coupons/', include('coupons.urls', namespace='coupons')),
     path('search/', include('search.urls', namespace='search')),
     path('product-specs/', include('specification.urls')),
+
+    path('oauth/', include('social_django.urls', namespace='social')),
+
     path('', include('main.urls')),
 
 ]
